@@ -24,11 +24,24 @@ Timing measures the local server's request, response parsing, and validation. It
 | Score | Native probability-weighted value, distribution, legend and confidence | Validated generated rubric value |
 | Noul | Native yes/no probability, no separate confidence | Generated self-reported probability estimate |
 | Usage | Provider-reported token usage | Provider-reported token usage |
-| Cost | Not inferred | Not inferred |
+| Cost | Estimated from reported input tokens | Estimated from reported input, cache and output tokens |
 
 A Noul near **0.5 means uncertainty**, not medium intensity. Independent conditions need independent Nouls; a Choice is a competition among options. A Score uses indices from **0 through N−1**, may be fractional, and is not an exact numerical measurement. Choice/Score confidence is distinct from the selected option's probability.
 
 The confidence-routing demo deliberately shows a Jev-specific capability: low native confidence triggers review. OpenAI's panel shows an ungated candidate because this baseline has no comparable native confidence. Do not compare their automated coverage as if the policies were equivalent. Other demos apply the same deterministic policy. Noul thresholds are illustrative and require separate calibration for each provider.
+
+## Estimated cost per run
+
+Each live panel shows its own request's estimated **USD token cost** beside elapsed time. Prices were verified on **2026-09-20**:
+
+- [TypeSafe Jev 1.13](https://docs.typesafe.ai/models): $0.042 per million input tokens; output free.
+- [OpenAI GPT-6 Astra](https://developers.openai.com/api/docs/models/gpt-6-astra): $10 input, $1 cached input, $12.50 cache writes, and $50 output per million tokens at standard pricing.
+
+The adapter explicitly requests OpenAI's default service tier. The estimator respects returned default, Flex or Fast/priority tiers and Astra's long-context rate above 272,000 input tokens. Input tokens are partitioned into ordinary input, cache reads and cache writes so they are not double-counted. Output tokens already include reasoning tokens. Absent cache counts are treated as zero; missing or invalid overall usage makes cost unavailable.
+
+Formula: sum of each token category × its USD rate per million ÷ 1,000,000. Response details and JSON exports retain full precision, rates, token breakdown, source and verification date. The UI shows six decimals (positive amounts smaller than that display `<$0.000001`). Preview costs are $0 for local fixture playback, not hypothetical model calls.
+
+These are list-price estimates, not invoices; taxes, credits and negotiated prices are excluded. Unknown returned model versions or service tiers show **Unavailable** until their rates are verified in `shared/pricing.js`. Jev aliases use the published 1.13 rates only when the API returns a known identifier. Failed requests have no cost estimate and may still be billable; this is not a cumulative billing ledger.
 
 ## How to make a useful evaluation
 

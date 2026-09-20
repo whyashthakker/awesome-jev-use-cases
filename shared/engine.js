@@ -53,7 +53,7 @@ export function decision(demo, values, answers = {}) {
 }
 export function previewResult(demo, index, provider) {
   const fixture = demo.scenarios[index];
-  return scenePolicy(demo,fixture.state,{provider, mode:'preview', model:'Hand-authored fixture', values:fixture.expected, answers:provider === 'jev' ? (fixture.previewAnswers || {}) : {}, latencyMs:null, usage:null, decision:decision(demo, fixture.expected, provider === 'jev' ? (fixture.previewAnswers || {}) : {}), note:'Illustrative fixture shared by both panels. No model was called; this is not a benchmark.'});
+  return scenePolicy(demo,fixture.state,{provider, mode:'preview', model:'Hand-authored fixture', values:fixture.expected, answers:provider === 'jev' ? (fixture.previewAnswers || {}) : {}, latencyMs:null, usage:null, cost:{status:'preview',usd:0,currency:'USD',note:'No API call.'}, decision:decision(demo, fixture.expected, provider === 'jev' ? (fixture.previewAnswers || {}) : {}), note:'Illustrative fixture shared by both panels. No model was called; this is not a benchmark.'});
 }
 
 export function scenePolicy(demo,state,result) {

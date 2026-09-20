@@ -15,6 +15,7 @@ for(const demo of catalog) {
     await expect(page.locator(`#${provider} .decision`)).not.toHaveText('Ready when you are');
     await expect(page.locator(`#${provider} .metrics`)).toContainText('PREVIEW FIXTURE');
     await expect(page.locator(`#${provider} .visual svg`)).toBeVisible();
+    await expect(page.locator(`#${provider} .run-cost`)).toContainText('$0.00 · no API call');
     await expect(page.locator(`#${provider} .answers`)).not.toBeEmpty();
    }
   }
@@ -48,18 +49,29 @@ test('missing keys stay errors in live mode, never fixture data',async({page})=>
  await expect(page.locator('#jev .decision')).toContainText('TYPESAFE_API_KEY');await expect(page.locator('#openai .decision')).toContainText('OPENAI_API_KEY');
  await expect(page.locator('#jev .answers')).toBeEmpty();await expect(page.locator('#status')).toContainText('failed');
 });
-test('live panels complete independently, preserve native distributions, and export the exact edited state',async({page})=>{
+test('live panels complete independently, preserve native distributions, and export the exact edited state',async({page},testInfo)=>{
  const state='A changed ticket about a refund.';
  await page.route('**/api/evaluate',async route=>{
   const body=route.request().postDataJSON();expect(body.state).toBe(state);
   const isJev=body.provider==='jev';
   if(!isJev)await new Promise(r=>setTimeout(r,200));
-  await route.fulfill({json:{provider:body.provider,mode:'live',latencyMs:isJev?125:300,model:isJev?'jev-test':'gpt-6-astra',usage:{input_tokens:30,output_tokens:10},values:{department:'billing',refund:.9,frustration:1.5},answers:isJev?{department:{type:'choice',choice:'billing',confidence:.9,probabilities:{billing:.9,technical:.1,sales:0}}}:{},decision:{label:'Billing',target:'billing'},note:'Mocked transport for browser test'}});
+  await route.fulfill({json:{provider:body.provider,mode:'live',latencyMs:isJev?125:300,model:isJev?'jev-test':'gpt-6-astra',usage:{input_tokens:30,output_tokens:10},cost:{status:'estimated',usd:isJev?0.00000126:0.0008,currency:'USD'},values:{department:'billing',refund:.9,frustration:1.5},answers:isJev?{department:{type:'choice',choice:'billing',confidence:.9,probabilities:{billing:.9,technical:.1,sales:0}}}:{},decision:{label:'Billing',target:'billing'},note:'Mocked transport for browser test'}});
  });
  await page.goto('/use-cases/01-support-ticket-routing/');await expect(page.locator('#key-status')).toContainText('missing');
  await page.locator('#state').fill(state);await page.locator('#mode').selectOption('live');await page.locator('#run').click();
  await expect(page.locator('#jev .metrics')).toContainText('125 ms');await expect(page.locator('#openai .metrics')).toContainText('300 ms');
  await expect(page.locator('#jev .answers')).toContainText('native confidence 0.90');
+ await expect(page.locator('#jev .run-cost')).toContainText('$0.000001 USD · estimated');
+ await expect(page.locator('#openai .run-cost')).toContainText('$0.000800 USD · estimated');
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
+ await page.screenshot({path:`test-results/cost-${testInfo.project.name}.png`,fullPage:true});
  await page.locator('.options summary').click();const downloaded=page.waitForEvent('download');await page.locator('#export').click();const download=await downloaded;
- const stream=await download.createReadStream();let body='';for await(const chunk of stream)body+=chunk;const exported=JSON.parse(body);expect(exported.state).toBe(state);expect(exported.results.openai.model).toBe('gpt-6-astra');
+ const stream=await download.createReadStream();let body='';for await(const chunk of stream)body+=chunk;const exported=JSON.parse(body);expect(exported.state).toBe(state);expect(exported.results.openai.model).toBe('gpt-6-astra');expect(exported.results.openai.cost.usd).toBe(0.0008);
+});
+
+test('missing pricing displays unavailable, not zero',async({page})=>{
+ await page.route('**/api/evaluate',route=>route.fulfill({json:{mode:'live',latencyMs:20,values:{department:'billing',refund:.9,frustration:1},answers:{},decision:{label:'Billing',target:'billing'},cost:{status:'unavailable',usd:null,reason:'Unknown model'}}}));
+ await page.goto('/use-cases/01-support-ticket-routing/');await expect(page.locator('#key-status')).toContainText('missing');
+ await page.locator('#mode').selectOption('live');await page.locator('#run').click();
+ for(const p of ['jev','openai'])await expect(page.locator(`#${p} .run-cost`)).toHaveText('Cost / run: Unavailable');
 });

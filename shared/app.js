@@ -2,6 +2,7 @@ import {previewResult, decision, scenePolicy} from './engine.js';
 import {scene} from './visual.js';
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dollars = n => n === 0 ? '$0.00' : n < 0.000001 ? '<$0.000001' : `$${n.toFixed(6)}`;
 if ($('#gallery')) {
   const cards = [...document.querySelectorAll('.card')];
   function filter() {
@@ -30,7 +31,10 @@ if ($('#gallery')) {
     panel.querySelector('.visual').innerHTML=scene(current,result,currentState);
     panel.querySelector('.decision').textContent=error || result?.decision.label || 'Ready when you are';
     panel.querySelector('.decision').classList.toggle('error',!!error);
-    panel.querySelector('.metrics').textContent=result ? result.mode==='preview'?'PREVIEW FIXTURE · no timing or tokens':`${result.latencyMs} ms · ${result.usage?.input_tokens ?? '—'} input / ${result.usage?.output_tokens ?? '—'} output tokens`:'No API call yet';
+    const metrics = panel.querySelector('.metrics');
+    const cost = result?.mode === 'preview' ? '$0.00 · no API call' : result?.cost?.status === 'estimated' ? `${dollars(result.cost.usd)} USD · estimated` : 'Unavailable';
+    metrics.innerHTML = result ? `<span>${result.mode==='preview'?'PREVIEW FIXTURE · no timing':`${result.latencyMs} ms`}</span><span class="run-cost">Cost / run: ${esc(cost)}</span>${result.mode==='live'?`<span>${result.usage?.input_tokens ?? '—'} input / ${result.usage?.output_tokens ?? '—'} output tokens</span>`:''}` : 'No API call yet';
+    metrics.title = result?.mode === 'preview' ? 'Local fixture playback is free.' : result?.cost?.note || result?.cost?.reason || '';
     panel.querySelector('.result-note').textContent=result?.note || '';
     panel.querySelector('.answers').innerHTML=result?Object.entries(current.questions).map(([key,q])=>{
       const a=result.answers?.[key],v=result.values[key];

@@ -83,7 +83,7 @@ A Noul near **0.5 means uncertainty**, not medium intensity. For independent con
 
 Both receive the **same state and question definitions**. OpenAI can produce reliable structured output too; the comparison does not deliberately force a prose-only baseline. A fixed choice may make generation unnecessary for that step, but it does not establish that Jev wins on quality, speed or cost.
 
-**No benchmark winner is claimed.** Preview results are fixtures shared by both panels. Live latency includes network time; tokens are provider-reported and are not directly equivalent costs. Native Jev probabilities and OpenAI self-reported probability estimates should not be treated as interchangeable. [Read the comparison methodology](docs/methodology.md).
+**No benchmark winner is claimed.** Preview results are fixtures shared by both panels. Live latency includes network time. Each panel shows estimated USD cost per run from provider-reported tokens and published rates, including OpenAI cache reads/writes. Tiny costs retain six decimal places. The calculation and price source are included in the response details and JSON export. Preview runs show $0 because no API call occurs. Missing usage or unknown model pricing shows “Unavailable”, never a fabricated zero. Native Jev probabilities and OpenAI self-reported probability estimates should not be treated as interchangeable. [Read the comparison methodology](docs/methodology.md).
 
 ## All 50 use cases
 

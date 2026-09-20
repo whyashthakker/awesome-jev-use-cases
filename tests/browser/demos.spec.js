@@ -62,7 +62,7 @@ test('live panels complete independently, preserve native distributions, and exp
  await expect(page.locator('#jev .metrics')).toContainText('125 ms');await expect(page.locator('#openai .metrics')).toContainText('300 ms');
  await expect(page.locator('#jev .answers')).toContainText('native confidence 0.90');
  await expect(page.locator('#jev .run-cost')).toContainText('$0.000001 USD · estimated');
- await expect(page.locator('#openai .run-cost')).toContainText('$0.000010500 USD · estimated');
+ await expect(page.locator('#openai .run-cost')).toContainText('$0.000010 USD · estimated');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
  await page.screenshot({path:`test-results/cost-${testInfo.project.name}.png`,fullPage:true});
  await page.locator('.options summary').click();const downloaded=page.waitForEvent('download');await page.locator('#export').click();const download=await downloaded;

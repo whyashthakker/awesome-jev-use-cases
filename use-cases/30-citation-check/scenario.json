@@ -1,0 +1,58 @@
+{
+  "id": "30-citation-check",
+  "title": "Citation support checking",
+  "category": "Search & knowledge",
+  "scene": "judge",
+  "summary": "Compare one claim with its cited source excerpt.",
+  "why": "A source check needs supported, contradicted or unknown.",
+  "questions": {
+    "verdict": {
+      "type": "choice",
+      "instructions": "Does the source excerpt support the claim?",
+      "criteria": {
+        "supported": "Source explicitly supports claim",
+        "contradicted": "Source explicitly conflicts with claim",
+        "unknown": "Source does not establish claim"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Supported claim",
+      "state": {
+        "claim": "The trial enrolled 40 participants.",
+        "source": "Forty participants enrolled in the trial."
+      },
+      "expected": {
+        "verdict": "supported"
+      }
+    },
+    {
+      "name": "Inflated claim",
+      "state": {
+        "claim": "The trial enrolled 400 participants.",
+        "source": "Forty participants enrolled in the trial."
+      },
+      "expected": {
+        "verdict": "contradicted"
+      }
+    }
+  ],
+  "labels": {
+    "supported": "Supported",
+    "contradicted": "Contradicted",
+    "unknown": "Unknown"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "verdict"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe citation checking",
+      "url": "https://docs.typesafe.ai/cookbooks/citation_check"
+    }
+  ],
+  "limitation": "Checks only the supplied excerpt. It does not fetch sources or establish that the source itself is true.",
+  "pattern": "Atomic Choice"
+}

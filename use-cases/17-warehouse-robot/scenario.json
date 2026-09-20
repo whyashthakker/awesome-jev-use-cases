@@ -1,0 +1,58 @@
+{
+  "id": "17-warehouse-robot",
+  "title": "Warehouse robot routing",
+  "category": "Simulation",
+  "scene": "grid",
+  "summary": "Choose a next corridor from semantic obstruction reports.",
+  "why": "A robot planner can consume an enum while a geometric planner owns movement.",
+  "questions": {
+    "route": {
+      "type": "choice",
+      "instructions": "Choose the available corridor; wait if neither is clear.",
+      "criteria": {
+        "left": "Left clear, right blocked",
+        "right": "Right clear, left blocked",
+        "wait": "Both blocked or uncertain"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Left blocked",
+      "state": {
+        "left": "fallen box",
+        "right": "clear"
+      },
+      "expected": {
+        "route": "right"
+      }
+    },
+    {
+      "name": "Both blocked",
+      "state": {
+        "left": "fallen box",
+        "right": "person working"
+      },
+      "expected": {
+        "route": "wait"
+      }
+    }
+  ],
+  "labels": {
+    "left": "Left",
+    "right": "Right",
+    "wait": "Wait"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "route"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Toy grid with text facts. Not robot navigation, obstacle perception or a safety controller.",
+  "pattern": "Atomic Choice"
+}

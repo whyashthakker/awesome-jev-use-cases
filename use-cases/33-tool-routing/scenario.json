@@ -1,0 +1,62 @@
+{
+  "id": "33-tool-routing",
+  "title": "Agent tool routing",
+  "category": "Agents & evaluation",
+  "scene": "route",
+  "summary": "Choose one tool from a fixed tool registry.",
+  "why": "An agent orchestrator needs a function name to dispatch.",
+  "questions": {
+    "tool": {
+      "type": "choice",
+      "instructions": "Which tool fits the request?",
+      "criteria": {
+        "calculator": "Arithmetic",
+        "search": "Find external information",
+        "calendar": "Inspect calendar availability",
+        "none": "No listed tool fits"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Arithmetic",
+      "state": {
+        "request": "What is 18 multiplied by 24?"
+      },
+      "expected": {
+        "tool": "calculator"
+      }
+    },
+    {
+      "name": "Calendar",
+      "state": {
+        "request": "Am I free tomorrow afternoon?"
+      },
+      "expected": {
+        "tool": "calendar"
+      }
+    }
+  ],
+  "labels": {
+    "calculator": "Calculator",
+    "search": "Search",
+    "calendar": "Calendar",
+    "none": "None"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "tool"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe function calling",
+      "url": "https://docs.typesafe.ai/cookbooks/function_calling"
+    },
+    {
+      "title": "AWS routing workflows",
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-patterns/workflow-for-routing.html"
+    }
+  ],
+  "limitation": "Shows selection only; tools do not execute. Arithmetic itself belongs in a calculator.",
+  "pattern": "Atomic Choice"
+}

@@ -1,0 +1,105 @@
+{
+  "id": "01-support-ticket-routing",
+  "title": "Support ticket: Choice, Noul & Score",
+  "category": "Customer experience",
+  "scene": "route",
+  "summary": "Ask three different questions about the same flight-refund ticket.",
+  "why": "The application needs one queue key per ticket; a written answer adds no routing value.",
+  "questions": {
+    "department": {
+      "type": "choice",
+      "instructions": "Which department should handle this ticket?",
+      "criteria": {
+        "billing": "Refunds, charges and payment issues",
+        "technical": "Software bugs and integration failures",
+        "sales": "New purchases and plan questions"
+      }
+    },
+    "refund": {
+      "type": "noul",
+      "instructions": "Does this message request a refund?"
+    },
+    "frustration": {
+      "type": "score",
+      "instructions": "How frustrated does the customer sound?",
+      "criteria": [
+        "Calm",
+        "Concerned",
+        "Very angry"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Flight refund",
+      "state": "My flight was cancelled and I need a refund before Friday, this is honestly ridiculous.",
+      "expected": {
+        "department": "billing",
+        "refund": 0.95,
+        "frustration": 1.65
+      },
+      "previewAnswers": {
+        "department": {
+          "type": "choice",
+          "choice": "billing",
+          "probabilities": {
+            "billing": 0.87,
+            "technical": 0.13,
+            "sales": 0
+          },
+          "confidence": 0.805
+        },
+        "refund": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "frustration": {
+          "type": "score",
+          "score": 1.65,
+          "probabilities": {
+            "0": 0.05,
+            "1": 0.25,
+            "2": 0.7
+          },
+          "legend": {
+            "0": "Calm",
+            "1": "Concerned",
+            "2": "Very angry"
+          },
+          "confidence": 0.65
+        }
+      }
+    },
+    {
+      "name": "Calm sales question",
+      "state": "Hello, could you tell me which plan includes team accounts? Thank you.",
+      "expected": {
+        "department": "sales",
+        "refund": 0.02,
+        "frustration": 0.05
+      }
+    }
+  ],
+  "labels": {
+    "billing": "Billing",
+    "technical": "Technical",
+    "sales": "Sales"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "department"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe intent routing",
+      "url": "https://docs.typesafe.ai/patterns/intent-routing"
+    },
+    {
+      "title": "AWS routing workflows",
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-patterns/workflow-for-routing.html"
+    }
+  ],
+  "limitation": "The preview probabilities and confidence are illustrative, not API measurements. Noul 0.5 means uncertainty, not medium intensity. Score runs from 0 to 2 here and can fall between levels.",
+  "pattern": "Choice + Noul + Score",
+  "primitiveExplorer": true
+}

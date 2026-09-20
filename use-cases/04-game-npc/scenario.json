@@ -1,0 +1,60 @@
+{
+  "id": "04-game-npc",
+  "title": "Game NPC decisions",
+  "category": "Simulation",
+  "scene": "grid",
+  "summary": "Choose the next action for a top-down game character.",
+  "why": "A game loop consumes an action enum; dialogue generation is a separate task.",
+  "questions": {
+    "action": {
+      "type": "choice",
+      "instructions": "Choose the NPC action given the supplied tactical facts.",
+      "criteria": {
+        "retreat": "Threat nearby and health critical",
+        "attack": "Threat in range and health sufficient",
+        "patrol": "No immediate threat"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Low health",
+      "state": {
+        "health": "critical",
+        "enemy": "nearby",
+        "cover": "behind NPC"
+      },
+      "expected": {
+        "action": "retreat"
+      }
+    },
+    {
+      "name": "Clear patrol",
+      "state": {
+        "health": "full",
+        "enemy": "none visible",
+        "cover": "behind NPC"
+      },
+      "expected": {
+        "action": "patrol"
+      }
+    }
+  ],
+  "labels": {
+    "retreat": "Retreat",
+    "attack": "Attack",
+    "patrol": "Patrol"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "action"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Discrete toy turns, not a frame-time benchmark. No claim that a network model can meet a real-time game frame budget.",
+  "pattern": "Atomic Choice"
+}

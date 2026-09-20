@@ -1,0 +1,86 @@
+{
+  "id": "07-map-reduce-classification",
+  "title": "Map-reduce classification",
+  "category": "Data & extraction",
+  "scene": "batch",
+  "summary": "Label three feedback records in parallel, then count labels in code.",
+  "why": "A dataset job needs labels and aggregation, not one explanation per record.",
+  "questions": {
+    "item_0": {
+      "type": "choice",
+      "instructions": "Classify records[0].",
+      "criteria": {
+        "bug": "Broken behavior",
+        "request": "Desired new feature",
+        "praise": "Positive feedback"
+      }
+    },
+    "item_1": {
+      "type": "choice",
+      "instructions": "Classify records[1].",
+      "criteria": {
+        "bug": "Broken behavior",
+        "request": "Desired new feature",
+        "praise": "Positive feedback"
+      }
+    },
+    "item_2": {
+      "type": "choice",
+      "instructions": "Classify records[2].",
+      "criteria": {
+        "bug": "Broken behavior",
+        "request": "Desired new feature",
+        "praise": "Positive feedback"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Mixed batch",
+      "state": {
+        "records": [
+          "The save button crashes.",
+          "Please add dark mode.",
+          "Love the keyboard shortcuts."
+        ]
+      },
+      "expected": {
+        "item_0": "bug",
+        "item_1": "request",
+        "item_2": "praise"
+      }
+    },
+    {
+      "name": "Bug-heavy batch",
+      "state": {
+        "records": [
+          "The app freezes.",
+          "Export fails.",
+          "Please add offline mode."
+        ]
+      },
+      "expected": {
+        "item_0": "bug",
+        "item_1": "bug",
+        "item_2": "request"
+      }
+    }
+  ],
+  "labels": {
+    "bug": "Bug",
+    "request": "Feature request",
+    "praise": "Praise"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "item_0"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe speculative fan-out",
+      "url": "https://docs.typesafe.ai/patterns/fan-out"
+    }
+  ],
+  "limitation": "This mini batch contains three records. It is not evidence of million-record throughput or cost.",
+  "pattern": "Parallel independent questions"
+}

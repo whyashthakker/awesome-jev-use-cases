@@ -1,0 +1,56 @@
+{
+  "id": "09-inventory-pricing",
+  "title": "Inventory pressure scoring",
+  "category": "Commerce",
+  "scene": "gauge",
+  "summary": "Turn supplier notes into a scarcity score for a pricing policy.",
+  "why": "Code can consume a semantic pressure score and own all price calculations.",
+  "questions": {
+    "pressure": {
+      "type": "score",
+      "instructions": "Rate supply pressure described in the notes.",
+      "criteria": [
+        "Normal replenishment",
+        "Some delays or limited stock",
+        "Severe shortage and no near-term replenishment"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Supply disruption",
+      "state": {
+        "notes": "The supplier halted shipments; all incoming deliveries are canceled."
+      },
+      "expected": {
+        "pressure": 1.95
+      }
+    },
+    {
+      "name": "Normal restock",
+      "state": {
+        "notes": "Regular weekly deliveries are confirmed; backup supplier is available."
+      },
+      "expected": {
+        "pressure": 0.05
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "score",
+    "key": "pressure",
+    "max": 2,
+    "threshold": 1.0,
+    "high": "Prioritize",
+    "low": "Standard queue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Does not set real prices or forecast demand. Price bounds, fairness rules and numerical inventory math belong in code.",
+  "pattern": "Atomic Score"
+}

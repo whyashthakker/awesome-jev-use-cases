@@ -1,0 +1,96 @@
+{
+  "id": "31-search-reranking",
+  "title": "Search result re-ranking",
+  "category": "Search & knowledge",
+  "scene": "rank",
+  "summary": "Sort three retrieved pages by relevance to a query.",
+  "why": "Search needs relevance scores, not generated page summaries.",
+  "questions": {
+    "item_0": {
+      "type": "score",
+      "instructions": "Rate relevance of pages[0] to query.",
+      "criteria": [
+        "Unrelated",
+        "Related background",
+        "Direct answer"
+      ]
+    },
+    "item_1": {
+      "type": "score",
+      "instructions": "Rate relevance of pages[1] to query.",
+      "criteria": [
+        "Unrelated",
+        "Related background",
+        "Direct answer"
+      ]
+    },
+    "item_2": {
+      "type": "score",
+      "instructions": "Rate relevance of pages[2] to query.",
+      "criteria": [
+        "Unrelated",
+        "Related background",
+        "Direct answer"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Password reset",
+      "state": {
+        "query": "reset my password",
+        "pages": [
+          "Password reset steps",
+          "Subscription invoices",
+          "Two-factor authentication setup"
+        ]
+      },
+      "expected": {
+        "item_0": 2,
+        "item_1": 0,
+        "item_2": 1
+      }
+    },
+    {
+      "name": "Billing history",
+      "state": {
+        "query": "find previous invoices",
+        "pages": [
+          "Password reset steps",
+          "Subscription invoices",
+          "Two-factor authentication setup"
+        ]
+      },
+      "expected": {
+        "item_0": 0,
+        "item_1": 2,
+        "item_2": 0
+      }
+    }
+  ],
+  "labels": {
+    "item_0": "Password help",
+    "item_1": "Invoices",
+    "item_2": "Two-factor help"
+  },
+  "policy": {
+    "kind": "rank",
+    "keys": [
+      "item_0",
+      "item_1",
+      "item_2"
+    ]
+  },
+  "sources": [
+    {
+      "title": "TypeSafe re-ranking",
+      "url": "https://docs.typesafe.ai/cookbooks/rerank_typesafe"
+    },
+    {
+      "title": "Cohere reranking",
+      "url": "https://docs.cohere.com/docs/rerank"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Parallel Score + code sort"
+}

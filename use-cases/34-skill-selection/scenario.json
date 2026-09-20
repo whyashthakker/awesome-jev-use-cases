@@ -1,0 +1,63 @@
+{
+  "id": "34-skill-selection",
+  "title": "Agent skill selection",
+  "category": "Agents & evaluation",
+  "scene": "route",
+  "summary": "Pick a relevant skill and independently check whether any skill is needed.",
+  "why": "The agent needs one catalog ID or a no-skill branch.",
+  "questions": {
+    "skill": {
+      "type": "choice",
+      "instructions": "Which skill best fits the request?",
+      "criteria": {
+        "pdf": "Read or write PDF",
+        "slides": "Build slide decks",
+        "spreadsheet": "Work with spreadsheets"
+      }
+    },
+    "needed": {
+      "type": "noul",
+      "instructions": "Does the request need PDF, slides or spreadsheet tooling?"
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Deck request",
+      "state": {
+        "request": "Create a six-slide presentation from these notes."
+      },
+      "expected": {
+        "skill": "slides",
+        "needed": 0.99
+      }
+    },
+    {
+      "name": "Simple greeting",
+      "state": {
+        "request": "Hello, how are you?"
+      },
+      "expected": {
+        "skill": "pdf",
+        "needed": 0.01
+      }
+    }
+  ],
+  "labels": {
+    "pdf": "Pdf",
+    "slides": "Slides",
+    "spreadsheet": "Spreadsheet"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "skill",
+    "require": "needed"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe skill suggestion",
+      "url": "https://docs.typesafe.ai/cookbooks/skill_suggestion"
+    }
+  ],
+  "limitation": "The code suppresses the forced Choice when no listed skill is needed. Skill execution is outside this demo.",
+  "pattern": "Speculative Choice + Noul"
+}

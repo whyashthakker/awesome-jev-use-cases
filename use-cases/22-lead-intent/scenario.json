@@ -1,0 +1,56 @@
+{
+  "id": "22-lead-intent",
+  "title": "Inbound lead intent",
+  "category": "Customer experience",
+  "scene": "route",
+  "summary": "Route an inbound message by its explicit buying intent.",
+  "why": "A CRM needs a known next step before a salesperson writes a response.",
+  "questions": {
+    "intent": {
+      "type": "choice",
+      "instructions": "What does the sender explicitly want?",
+      "criteria": {
+        "demo": "Product demo or buying discussion",
+        "support": "Help using an existing account",
+        "research": "General information without buying request"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Book a demo",
+      "state": {
+        "message": "We want a team plan. Can we see a demo this week?"
+      },
+      "expected": {
+        "intent": "demo"
+      }
+    },
+    {
+      "name": "Account problem",
+      "state": {
+        "message": "I already paid, but I cannot log in."
+      },
+      "expected": {
+        "intent": "support"
+      }
+    }
+  ],
+  "labels": {
+    "demo": "Demo",
+    "support": "Support",
+    "research": "Research"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "intent"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe intent routing",
+      "url": "https://docs.typesafe.ai/patterns/intent-routing"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Choice"
+}

@@ -1,0 +1,64 @@
+{
+  "id": "02-fraud-tier-scoring",
+  "title": "Fraud-tier scoring",
+  "category": "Commerce",
+  "scene": "gauge",
+  "summary": "Score transaction review priority against a small risk rubric.",
+  "why": "A review queue consumes a bounded score, not a generated fraud report.",
+  "questions": {
+    "risk": {
+      "type": "score",
+      "instructions": "Rate suspiciousness of the transaction signals, not guilt.",
+      "criteria": [
+        "Routine known customer activity",
+        "Unusual activity with a plausible explanation",
+        "Multiple suspicious signals needing review"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Suspicious checkout",
+      "state": {
+        "device": "new",
+        "shipping": "reshipper",
+        "activity": "many failed cards followed by a high-value purchase"
+      },
+      "expected": {
+        "risk": 1.9
+      }
+    },
+    {
+      "name": "Routine renewal",
+      "state": {
+        "device": "known",
+        "activity": "usual subscription renewal",
+        "shipping": "unchanged"
+      },
+      "expected": {
+        "risk": 0.1
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "score",
+    "key": "risk",
+    "max": 2,
+    "threshold": 1.0,
+    "high": "Prioritize",
+    "low": "Standard queue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    },
+    {
+      "title": "AWS fraud detection patterns",
+      "url": "https://docs.aws.amazon.com/frauddetector/latest/ug/what-is-frauddetector.html"
+    }
+  ],
+  "limitation": "Toy review prioritization only. This is not a calibrated fraud probability, payment authorization system or financial decision model.",
+  "pattern": "Atomic Score"
+}

@@ -1,0 +1,82 @@
+{
+  "id": "37-response-quality",
+  "title": "Composite response quality",
+  "category": "Agents & evaluation",
+  "scene": "judge",
+  "summary": "Score grounding and relevance separately, then combine in code.",
+  "why": "An evaluation pipeline needs independent dimensions and explicit weights.",
+  "questions": {
+    "grounding": {
+      "type": "score",
+      "instructions": "Is answer supported by reference?",
+      "criteria": [
+        "Unsupported",
+        "Partially supported",
+        "Fully supported"
+      ]
+    },
+    "relevance": {
+      "type": "score",
+      "instructions": "Does answer address question?",
+      "criteria": [
+        "Unrelated",
+        "Partial answer",
+        "Direct answer"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Good answer",
+      "state": {
+        "question": "When does support open?",
+        "reference": "Support opens at 09:00 UTC.",
+        "answer": "Support opens at 09:00 UTC."
+      },
+      "expected": {
+        "grounding": 2,
+        "relevance": 2
+      }
+    },
+    {
+      "name": "Off-topic answer",
+      "state": {
+        "question": "When does support open?",
+        "reference": "Support opens at 09:00 UTC.",
+        "answer": "Our logo is blue."
+      },
+      "expected": {
+        "grounding": 0,
+        "relevance": 0
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "composite",
+    "keys": [
+      "grounding",
+      "relevance"
+    ],
+    "weights": [
+      0.7,
+      0.3
+    ],
+    "max": 2,
+    "threshold": 1.5,
+    "high": "Meets demo rubric",
+    "low": "Needs review"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe composite scoring",
+      "url": "https://docs.typesafe.ai/patterns/composite-scoring"
+    },
+    {
+      "title": "OpenAI evaluation graders",
+      "url": "https://developers.openai.com/api/docs/guides/graders"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Score + weighted code"
+}

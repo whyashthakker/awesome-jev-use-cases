@@ -1,0 +1,51 @@
+{
+  "id": "27-pii-screening",
+  "title": "Personal-data screening",
+  "category": "Trust & safety",
+  "scene": "gate",
+  "summary": "Detect personal contact data in a draft before publication.",
+  "why": "A publishing gate needs a review flag, not a prose privacy audit.",
+  "questions": {
+    "pii": {
+      "type": "noul",
+      "instructions": "Does the draft contain a personal email address or personal phone number?"
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Personal contact",
+      "state": {
+        "draft": "Contact Alex at alex.person@example.com for the surprise party."
+      },
+      "expected": {
+        "pii": 0.98
+      }
+    },
+    {
+      "name": "Generic instructions",
+      "state": {
+        "draft": "Contact our support team through the in-app help button."
+      },
+      "expected": {
+        "pii": 0.03
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "noul",
+    "key": "pii",
+    "low": 0.2,
+    "high": 0.8,
+    "yes": "Flag for review",
+    "no": "Continue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe LLM guardrails",
+      "url": "https://docs.typesafe.ai/cookbooks/llm_guardrails"
+    }
+  ],
+  "limitation": "Use deterministic secret/PII detectors as additional controls. No model-based detector guarantees complete coverage.",
+  "pattern": "Atomic Noul"
+}

@@ -1,0 +1,51 @@
+{
+  "id": "45-policy-compliance",
+  "title": "Policy checklist screening",
+  "category": "Trust & safety",
+  "scene": "gate",
+  "summary": "Check a draft against an explicit local publishing rule.",
+  "why": "A publishing workflow needs a policy flag, not a general compliance essay.",
+  "questions": {
+    "violation": {
+      "type": "noul",
+      "instructions": "Does draft promise a guaranteed investment return? Policy prohibits guaranteed-return claims."
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Prohibited promise",
+      "state": {
+        "draft": "Invest here and you are guaranteed to double your money."
+      },
+      "expected": {
+        "violation": 0.99
+      }
+    },
+    {
+      "name": "Risk-aware statement",
+      "state": {
+        "draft": "Returns vary and losses are possible."
+      },
+      "expected": {
+        "violation": 0.01
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "noul",
+    "key": "violation",
+    "low": 0.2,
+    "high": 0.8,
+    "yes": "Flag for review",
+    "no": "Continue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe LLM guardrails",
+      "url": "https://docs.typesafe.ai/cookbooks/llm_guardrails"
+    }
+  ],
+  "limitation": "Checks one fictional publishing rule. It does not determine legal or regulatory compliance.",
+  "pattern": "Atomic Noul"
+}

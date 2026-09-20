@@ -1,0 +1,62 @@
+{
+  "id": "03-content-moderation",
+  "title": "Content moderation triage",
+  "category": "Trust & safety",
+  "scene": "gate",
+  "summary": "Combine abuse detection with a moderation category.",
+  "why": "A high-volume triage step needs a flag and a category before human review.",
+  "questions": {
+    "abuse": {
+      "type": "noul",
+      "instructions": "Does the message directly insult or threaten a person?"
+    },
+    "category": {
+      "type": "choice",
+      "instructions": "Classify the message tone.",
+      "criteria": {
+        "ordinary": "Normal discussion",
+        "insult": "Targeted personal insult",
+        "threat": "Threat of harm"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Personal attack",
+      "state": {
+        "message": "You are an idiot. Nobody wants you here."
+      },
+      "expected": {
+        "abuse": 0.96,
+        "category": "insult"
+      }
+    },
+    {
+      "name": "Product criticism",
+      "state": {
+        "message": "This release is slow and the interface is confusing."
+      },
+      "expected": {
+        "abuse": 0.04,
+        "category": "ordinary"
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "noul",
+    "key": "abuse",
+    "low": 0.2,
+    "high": 0.8,
+    "yes": "Moderation queue",
+    "no": "Publish in sandbox"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe LLM guardrails",
+      "url": "https://docs.typesafe.ai/cookbooks/llm_guardrails"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Noul + Choice"
+}

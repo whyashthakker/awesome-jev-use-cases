@@ -1,0 +1,60 @@
+{
+  "id": "12-traffic-signals",
+  "title": "Traffic signal selection",
+  "category": "Simulation",
+  "scene": "traffic",
+  "summary": "Choose a toy intersection phase from precomputed queue conditions.",
+  "why": "The controller needs a phase enum and code-enforced interlocks.",
+  "questions": {
+    "phase": {
+      "type": "choice",
+      "instructions": "Choose the next phase using the supplied priority facts.",
+      "criteria": {
+        "north_south": "North-south demand is dominant and crossing is clear",
+        "east_west": "East-west demand is dominant and crossing is clear",
+        "all_red": "Crossing occupied or emergency hold"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "North queue",
+      "state": {
+        "dominant_demand": "north-south",
+        "crossing": "clear",
+        "emergency_hold": false
+      },
+      "expected": {
+        "phase": "north_south"
+      }
+    },
+    {
+      "name": "Crossing occupied",
+      "state": {
+        "dominant_demand": "east-west",
+        "crossing": "pedestrian present",
+        "emergency_hold": false
+      },
+      "expected": {
+        "phase": "all_red"
+      }
+    }
+  ],
+  "labels": {
+    "north_south": "North / south",
+    "east_west": "East / west",
+    "all_red": "All red"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "phase"
+  },
+  "sources": [
+    {
+      "title": "SUMO traffic signal simulation",
+      "url": "https://sumo.dlr.de/docs/Simulation/Traffic_Lights.html"
+    }
+  ],
+  "limitation": "Educational phase visualization only. No road infrastructure connection, timing optimization, safety certification or real-time control claim.",
+  "pattern": "Atomic Choice"
+}

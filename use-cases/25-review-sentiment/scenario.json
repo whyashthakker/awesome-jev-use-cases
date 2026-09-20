@@ -1,0 +1,56 @@
+{
+  "id": "25-review-sentiment",
+  "title": "Review sentiment",
+  "category": "Customer experience",
+  "scene": "gauge",
+  "summary": "Score product sentiment on an ordered three-level rubric.",
+  "why": "A review dashboard needs a numeric summary suitable for aggregation.",
+  "questions": {
+    "sentiment": {
+      "type": "score",
+      "instructions": "Rate the sentiment toward the product.",
+      "criteria": [
+        "Negative",
+        "Mixed or neutral",
+        "Positive"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Delighted reviewer",
+      "state": {
+        "review": "Setup was effortless and everything works beautifully."
+      },
+      "expected": {
+        "sentiment": 2
+      }
+    },
+    {
+      "name": "Mixed experience",
+      "state": {
+        "review": "Great search, but the editor crashes often."
+      },
+      "expected": {
+        "sentiment": 1
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "score",
+    "key": "sentiment",
+    "max": 2,
+    "threshold": 1.5,
+    "high": "Positive",
+    "low": "Needs attention"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Score"
+}

@@ -1,0 +1,61 @@
+{
+  "id": "38-extraction-verifier",
+  "title": "Structured extraction verifier",
+  "category": "Data & extraction",
+  "scene": "judge",
+  "summary": "Verify a candidate extraction against source text before accepting it.",
+  "why": "A cascade needs a pass-or-review signal, not regenerated extraction.",
+  "questions": {
+    "correct": {
+      "type": "noul",
+      "instructions": "Does the extracted object accurately reflect all stated fields in the source?"
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Matching record",
+      "state": {
+        "source": "Order A17 contains two blue mugs.",
+        "extracted": {
+          "order": "A17",
+          "item": "blue mugs",
+          "quantity": 2
+        }
+      },
+      "expected": {
+        "correct": 0.99
+      }
+    },
+    {
+      "name": "Wrong item",
+      "state": {
+        "source": "Order A17 contains two blue mugs.",
+        "extracted": {
+          "order": "A17",
+          "item": "red plates",
+          "quantity": 2
+        }
+      },
+      "expected": {
+        "correct": 0.01
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "noul",
+    "key": "correct",
+    "low": 0.2,
+    "high": 0.8,
+    "yes": "Accept candidate",
+    "no": "Escalate extraction"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe extraction cascade",
+      "url": "https://docs.typesafe.ai/cookbooks/sde_cascade"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Noul"
+}

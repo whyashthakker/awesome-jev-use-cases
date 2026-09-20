@@ -1,0 +1,64 @@
+{
+  "id": "39-email-span-extraction",
+  "title": "Pre-parsed email selection",
+  "category": "Data & extraction",
+  "scene": "route",
+  "summary": "Pick a billing email from candidates already found by a parser.",
+  "why": "The caller needs an existing span ID instead of a newly generated email address.",
+  "questions": {
+    "span": {
+      "type": "choice",
+      "instructions": "Which candidate is explicitly identified as the billing contact?",
+      "criteria": {
+        "email_1": "First candidate",
+        "email_2": "Second candidate",
+        "none": "No billing email stated"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Billing second",
+      "state": {
+        "text": "Support: help@example.com. Billing: accounts@example.com.",
+        "candidates": [
+          "help@example.com",
+          "accounts@example.com"
+        ]
+      },
+      "expected": {
+        "span": "email_2"
+      }
+    },
+    {
+      "name": "Billing first",
+      "state": {
+        "text": "Billing: finance@example.com. Sales: buy@example.com.",
+        "candidates": [
+          "finance@example.com",
+          "buy@example.com"
+        ]
+      },
+      "expected": {
+        "span": "email_1"
+      }
+    }
+  ],
+  "labels": {
+    "email_1": "Email 1",
+    "email_2": "Email 2",
+    "none": "None"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "span"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe pre-parsed extraction",
+      "url": "https://docs.typesafe.ai/cookbooks/pre_parsed_value_extraction_cookbook"
+    }
+  ],
+  "limitation": "Candidates are supplied fixtures. A production parser should discover and validate spans in code.",
+  "pattern": "Atomic Choice"
+}

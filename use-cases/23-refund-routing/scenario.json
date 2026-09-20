@@ -1,0 +1,56 @@
+{
+  "id": "23-refund-routing",
+  "title": "Refund request routing",
+  "category": "Customer experience",
+  "scene": "route",
+  "summary": "Categorize a refund request for the right reviewer.",
+  "why": "A queue classifier needs a reason code; refund eligibility stays in policy code.",
+  "questions": {
+    "reason": {
+      "type": "choice",
+      "instructions": "Classify the stated refund reason.",
+      "criteria": {
+        "duplicate": "Duplicate charge",
+        "quality": "Product dissatisfaction",
+        "delivery": "Item not received"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Charged twice",
+      "state": {
+        "request": "There are two charges for one order."
+      },
+      "expected": {
+        "reason": "duplicate"
+      }
+    },
+    {
+      "name": "Not delivered",
+      "state": {
+        "request": "The parcel never arrived. I want a refund."
+      },
+      "expected": {
+        "reason": "delivery"
+      }
+    }
+  ],
+  "labels": {
+    "duplicate": "Duplicate",
+    "quality": "Quality",
+    "delivery": "Delivery"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "reason"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe intent routing",
+      "url": "https://docs.typesafe.ai/patterns/intent-routing"
+    }
+  ],
+  "limitation": "Does not authorize refunds or determine legal rights.",
+  "pattern": "Atomic Choice"
+}

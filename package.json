@@ -1,0 +1,24 @@
+{
+  "name": "awesome-jev-use-cases",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "50 minimal visual Jev vs OpenAI decision demos using Choice, Score and Noul.",
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "build": "node scripts/build.js",
+    "test": "node --test tests/*.test.js",
+    "check": "npm run build && npm test",
+    "demo": "node --env-file-if-exists=.env scripts/run.js",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "openai": "^6.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}

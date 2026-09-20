@@ -1,0 +1,56 @@
+{
+  "id": "18-delivery-exception",
+  "title": "Delivery exception routing",
+  "category": "Operations",
+  "scene": "route",
+  "summary": "Send delivery notes to a fixed resolution queue.",
+  "why": "Operations needs a queue key for each exception.",
+  "questions": {
+    "queue": {
+      "type": "choice",
+      "instructions": "Choose the resolution team.",
+      "criteria": {
+        "address": "Address missing or incorrect",
+        "carrier": "Carrier delay or vehicle problem",
+        "customer": "Recipient unavailable"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Missing apartment",
+      "state": {
+        "note": "The building is correct but apartment number is missing."
+      },
+      "expected": {
+        "queue": "address"
+      }
+    },
+    {
+      "name": "Van breakdown",
+      "state": {
+        "note": "The delivery van broke down on the route."
+      },
+      "expected": {
+        "queue": "carrier"
+      }
+    }
+  ],
+  "labels": {
+    "address": "Address",
+    "carrier": "Carrier",
+    "customer": "Customer"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "queue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe intent routing",
+      "url": "https://docs.typesafe.ai/patterns/intent-routing"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Choice"
+}

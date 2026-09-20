@@ -1,0 +1,507 @@
+[
+  {
+    "id": "01-support-ticket-routing",
+    "title": "Support ticket: Choice, Noul & Score",
+    "category": "Customer experience",
+    "summary": "Ask three different questions about the same flight-refund ticket.",
+    "scene": "route",
+    "primitives": [
+      "choice",
+      "noul",
+      "score"
+    ]
+  },
+  {
+    "id": "02-fraud-tier-scoring",
+    "title": "Fraud-tier scoring",
+    "category": "Commerce",
+    "summary": "Score transaction review priority against a small risk rubric.",
+    "scene": "gauge",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "03-content-moderation",
+    "title": "Content moderation triage",
+    "category": "Trust & safety",
+    "summary": "Combine abuse detection with a moderation category.",
+    "scene": "gate",
+    "primitives": [
+      "noul",
+      "choice"
+    ]
+  },
+  {
+    "id": "04-game-npc",
+    "title": "Game NPC decisions",
+    "category": "Simulation",
+    "summary": "Choose the next action for a top-down game character.",
+    "scene": "grid",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "05-feature-flag-routing",
+    "title": "Feature-flag eligibility",
+    "category": "Product & learning",
+    "summary": "Classify feedback into a suitable feature-preview cohort.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "06-output-guardrail",
+    "title": "LLM output guardrail",
+    "category": "Trust & safety",
+    "summary": "Screen a candidate answer before it reaches a user.",
+    "scene": "gate",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "07-map-reduce-classification",
+    "title": "Map-reduce classification",
+    "category": "Data & extraction",
+    "summary": "Label three feedback records in parallel, then count labels in code.",
+    "scene": "batch",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "08-voice-turn-taking",
+    "title": "Voice-agent turn-taking",
+    "category": "Agents & evaluation",
+    "summary": "Decide whether a transcript fragment signals an interruption.",
+    "scene": "timeline",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "09-inventory-pricing",
+    "title": "Inventory pressure scoring",
+    "category": "Commerce",
+    "summary": "Turn supplier notes into a scarcity score for a pricing policy.",
+    "scene": "gauge",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "10-recommendation-reranking",
+    "title": "Recommendation re-ranking",
+    "category": "Search & knowledge",
+    "summary": "Score three products against a shopper preference and sort in code.",
+    "scene": "rank",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "11-jev-as-judge",
+    "title": "Jev as judge",
+    "category": "Agents & evaluation",
+    "summary": "Judge two candidate answers against one explicit factual reference.",
+    "scene": "judge",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "12-traffic-signals",
+    "title": "Traffic signal selection",
+    "category": "Simulation",
+    "summary": "Choose a toy intersection phase from precomputed queue conditions.",
+    "scene": "traffic",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "13-autonomous-driving",
+    "title": "Autonomous driving decisions",
+    "category": "Simulation",
+    "summary": "Choose a maneuver for a vehicle in a tiny top-down scene.",
+    "scene": "driving",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "14-adaptive-learning",
+    "title": "Adaptive e-learning",
+    "category": "Product & learning",
+    "summary": "Select the next lesson from a learner explanation.",
+    "scene": "learning",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "15-answer-rubric",
+    "title": "Student answer scoring",
+    "category": "Product & learning",
+    "summary": "Evaluate a short science answer against a visible rubric.",
+    "scene": "gauge",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "16-smart-home",
+    "title": "Smart home intent",
+    "category": "Simulation",
+    "summary": "Route a natural-language request to a known room action.",
+    "scene": "home",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "17-warehouse-robot",
+    "title": "Warehouse robot routing",
+    "category": "Simulation",
+    "summary": "Choose a next corridor from semantic obstruction reports.",
+    "scene": "grid",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "18-delivery-exception",
+    "title": "Delivery exception routing",
+    "category": "Operations",
+    "summary": "Send delivery notes to a fixed resolution queue.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "19-incident-severity",
+    "title": "Incident severity triage",
+    "category": "Operations",
+    "summary": "Score an operational incident for the response queue.",
+    "scene": "gauge",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "20-alert-deduplication",
+    "title": "Alert deduplication",
+    "category": "Operations",
+    "summary": "Detect whether two alerts describe the same incident.",
+    "scene": "graph",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "21-churn-signal",
+    "title": "Customer churn signals",
+    "category": "Customer experience",
+    "summary": "Score explicit cancellation intent in a support note.",
+    "scene": "gauge",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "22-lead-intent",
+    "title": "Inbound lead intent",
+    "category": "Customer experience",
+    "summary": "Route an inbound message by its explicit buying intent.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "23-refund-routing",
+    "title": "Refund request routing",
+    "category": "Customer experience",
+    "summary": "Categorize a refund request for the right reviewer.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "24-email-priority",
+    "title": "Email urgency triage",
+    "category": "Customer experience",
+    "summary": "Identify time-sensitive language in an inbox.",
+    "scene": "timeline",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "25-review-sentiment",
+    "title": "Review sentiment",
+    "category": "Customer experience",
+    "summary": "Score product sentiment on an ordered three-level rubric.",
+    "scene": "gauge",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "26-spam-detection",
+    "title": "Spam detection",
+    "category": "Trust & safety",
+    "summary": "Flag unsolicited promotional messages for a review queue.",
+    "scene": "gate",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "27-pii-screening",
+    "title": "Personal-data screening",
+    "category": "Trust & safety",
+    "summary": "Detect personal contact data in a draft before publication.",
+    "scene": "gate",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "28-prompt-injection",
+    "title": "Prompt injection triage",
+    "category": "Trust & safety",
+    "summary": "Screen retrieved text for attempts to override an assistant.",
+    "scene": "gate",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "29-rag-passage-filter",
+    "title": "RAG passage filtering",
+    "category": "Search & knowledge",
+    "summary": "Check relevance and embedded instructions independently.",
+    "scene": "gate",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "30-citation-check",
+    "title": "Citation support checking",
+    "category": "Search & knowledge",
+    "summary": "Compare one claim with its cited source excerpt.",
+    "scene": "judge",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "31-search-reranking",
+    "title": "Search result re-ranking",
+    "category": "Search & knowledge",
+    "summary": "Sort three retrieved pages by relevance to a query.",
+    "scene": "rank",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "32-semantic-line-search",
+    "title": "Semantic line search",
+    "category": "Search & knowledge",
+    "summary": "Select a line ID containing the answer to a question.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "33-tool-routing",
+    "title": "Agent tool routing",
+    "category": "Agents & evaluation",
+    "summary": "Choose one tool from a fixed tool registry.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "34-skill-selection",
+    "title": "Agent skill selection",
+    "category": "Agents & evaluation",
+    "summary": "Pick a relevant skill and independently check whether any skill is needed.",
+    "scene": "route",
+    "primitives": [
+      "choice",
+      "noul"
+    ]
+  },
+  {
+    "id": "35-model-escalation",
+    "title": "Model escalation routing",
+    "category": "Agents & evaluation",
+    "summary": "Choose a handler based on task complexity.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "36-confidence-escalation",
+    "title": "Confidence-gated support routing",
+    "category": "Agents & evaluation",
+    "summary": "Route clear tickets and send low-confidence Jev answers to review.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "37-response-quality",
+    "title": "Composite response quality",
+    "category": "Agents & evaluation",
+    "summary": "Score grounding and relevance separately, then combine in code.",
+    "scene": "judge",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "38-extraction-verifier",
+    "title": "Structured extraction verifier",
+    "category": "Data & extraction",
+    "summary": "Verify a candidate extraction against source text before accepting it.",
+    "scene": "judge",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "39-email-span-extraction",
+    "title": "Pre-parsed email selection",
+    "category": "Data & extraction",
+    "summary": "Pick a billing email from candidates already found by a parser.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "40-date-component-extraction",
+    "title": "Date component extraction",
+    "category": "Data & extraction",
+    "summary": "Identify a month and day from a bounded candidate set.",
+    "scene": "timeline",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "41-document-layout",
+    "title": "Document structure recovery",
+    "category": "Data & extraction",
+    "summary": "Classify text blocks as heading, paragraph or list item.",
+    "scene": "batch",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "42-entity-resolution",
+    "title": "Knowledge graph entity alignment",
+    "category": "Search & knowledge",
+    "summary": "Choose whether two catalog records describe the same product.",
+    "scene": "graph",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "43-taxonomy-classification",
+    "title": "Hierarchical product classification",
+    "category": "Data & extraction",
+    "summary": "Choose a product leaf category inside a small taxonomy.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "44-contract-clause-triage",
+    "title": "Contract clause triage",
+    "category": "Operations",
+    "summary": "Route a clause to the relevant review checklist.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "45-policy-compliance",
+    "title": "Policy checklist screening",
+    "category": "Trust & safety",
+    "summary": "Check a draft against an explicit local publishing rule.",
+    "scene": "gate",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "46-product-attribute",
+    "title": "Product attribute extraction",
+    "category": "Commerce",
+    "summary": "Select a material explicitly stated in a product listing.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "47-brand-safety",
+    "title": "Ad placement brand safety",
+    "category": "Commerce",
+    "summary": "Check whether a placement conflicts with a stated brand rule.",
+    "scene": "gate",
+    "primitives": [
+      "noul"
+    ]
+  },
+  {
+    "id": "48-demand-features",
+    "title": "Demand signal extraction",
+    "category": "Commerce",
+    "summary": "Extract purchase intent and urgency as features for a separate forecaster.",
+    "scene": "gauge",
+    "primitives": [
+      "score"
+    ]
+  },
+  {
+    "id": "49-maintenance-triage",
+    "title": "Maintenance report triage",
+    "category": "Operations",
+    "summary": "Route equipment notes to a maintenance specialty.",
+    "scene": "route",
+    "primitives": [
+      "choice"
+    ]
+  },
+  {
+    "id": "50-speculative-fanout",
+    "title": "Speculative support fan-out",
+    "category": "Agents & evaluation",
+    "summary": "Ask intent, urgency and refund reason together; read only the relevant branch.",
+    "scene": "route",
+    "primitives": [
+      "choice",
+      "noul"
+    ]
+  }
+]

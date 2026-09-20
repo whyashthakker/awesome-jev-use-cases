@@ -1,0 +1,60 @@
+{
+  "id": "13-autonomous-driving",
+  "title": "Autonomous driving decisions",
+  "category": "Simulation",
+  "scene": "driving",
+  "summary": "Choose a maneuver for a vehicle in a tiny top-down scene.",
+  "why": "The next maneuver is a closed action set, while motion and collision checks belong in code.",
+  "questions": {
+    "maneuver": {
+      "type": "choice",
+      "instructions": "Choose a cautious toy maneuver from the described lane facts.",
+      "criteria": {
+        "brake": "Obstacle ahead and no verified clear adjacent lane",
+        "left": "Obstacle ahead and left lane explicitly clear",
+        "cruise": "Lane ahead clear"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Blocked lanes",
+      "state": {
+        "ahead": "stopped vehicle",
+        "left": "occupied",
+        "right": "road edge"
+      },
+      "expected": {
+        "maneuver": "brake"
+      }
+    },
+    {
+      "name": "Clear left lane",
+      "state": {
+        "ahead": "stopped vehicle",
+        "left": "verified clear",
+        "right": "road edge"
+      },
+      "expected": {
+        "maneuver": "left"
+      }
+    }
+  ],
+  "labels": {
+    "brake": "Brake",
+    "left": "Move left",
+    "cruise": "Cruise"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "maneuver"
+  },
+  "sources": [
+    {
+      "title": "Farama HighwayEnv intersection",
+      "url": "https://highway-env.farama.org/environments/intersection/"
+    }
+  ],
+  "limitation": "Synthetic text-to-maneuver visualization. Not a driving stack; no perception, trajectory planning or real-vehicle validation.",
+  "pattern": "Atomic Choice"
+}

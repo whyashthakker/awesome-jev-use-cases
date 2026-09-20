@@ -1,0 +1,51 @@
+{
+  "id": "24-email-priority",
+  "title": "Email urgency triage",
+  "category": "Customer experience",
+  "scene": "timeline",
+  "summary": "Identify time-sensitive language in an inbox.",
+  "why": "A priority badge needs one urgency signal rather than an email summary.",
+  "questions": {
+    "urgent": {
+      "type": "noul",
+      "instructions": "Does this email explicitly describe a time-sensitive problem or near-term deadline?"
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Deadline today",
+      "state": {
+        "email": "Production is down. We need the fix before this afternoon launch."
+      },
+      "expected": {
+        "urgent": 0.98
+      }
+    },
+    {
+      "name": "Future suggestion",
+      "state": {
+        "email": "When you have time next month, consider new icon colors."
+      },
+      "expected": {
+        "urgent": 0.04
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "noul",
+    "key": "urgent",
+    "low": 0.2,
+    "high": 0.8,
+    "yes": "Urgent inbox",
+    "no": "Normal inbox"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Noul"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "49-maintenance-triage",
+  "title": "Maintenance report triage",
+  "category": "Operations",
+  "scene": "route",
+  "summary": "Route equipment notes to a maintenance specialty.",
+  "why": "A work-order system needs a trade or review queue.",
+  "questions": {
+    "trade": {
+      "type": "choice",
+      "instructions": "Which specialty matches the described symptom?",
+      "criteria": {
+        "electrical": "Power, wiring or electrical issue",
+        "mechanical": "Moving parts, vibration or physical wear",
+        "facilities": "Leaks, building fixtures or room issues",
+        "review": "Unclear"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Motor vibration",
+      "state": {
+        "note": "The conveyor bearing grinds and vibrates during rotation."
+      },
+      "expected": {
+        "trade": "mechanical"
+      }
+    },
+    {
+      "name": "Roof leak",
+      "state": {
+        "note": "Rainwater is leaking through the warehouse ceiling."
+      },
+      "expected": {
+        "trade": "facilities"
+      }
+    }
+  ],
+  "labels": {
+    "electrical": "Electrical",
+    "mechanical": "Mechanical",
+    "facilities": "Facilities",
+    "review": "Review"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "trade"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Routes reports only. Does not diagnose equipment or authorize repairs.",
+  "pattern": "Atomic Choice"
+}

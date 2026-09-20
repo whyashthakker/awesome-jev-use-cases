@@ -1,0 +1,62 @@
+# Awesome Jev Use Cases
+
+> 50 original, minimal visual examples comparing TypeSafe Jev with the OpenAI Responses API.
+
+Jev exposes Choice (known category), Score (ordered rubric), and Noul (yes/no probability). This repository compares native typed decisions with generated JSON using gpt-6-astra. Preview data is illustrative; no verified performance ranking is published.
+
+## Documentation
+- [README](https://github.com/whyashthakker/awesome-jev-use-cases/blob/main/README.md): Setup and full catalog
+- [Methodology](https://github.com/whyashthakker/awesome-jev-use-cases/blob/main/docs/methodology.md): Fair comparison and limitations
+- [Research](https://github.com/whyashthakker/awesome-jev-use-cases/blob/main/docs/research.md): Primary sources and selection criteria
+
+## Use cases
+- [Support ticket: Choice, Noul & Score](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/01-support-ticket-routing): Ask three different questions about the same flight-refund ticket.
+- [Fraud-tier scoring](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/02-fraud-tier-scoring): Score transaction review priority against a small risk rubric.
+- [Content moderation triage](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/03-content-moderation): Combine abuse detection with a moderation category.
+- [Game NPC decisions](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/04-game-npc): Choose the next action for a top-down game character.
+- [Feature-flag eligibility](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/05-feature-flag-routing): Classify feedback into a suitable feature-preview cohort.
+- [LLM output guardrail](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/06-output-guardrail): Screen a candidate answer before it reaches a user.
+- [Map-reduce classification](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/07-map-reduce-classification): Label three feedback records in parallel, then count labels in code.
+- [Voice-agent turn-taking](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/08-voice-turn-taking): Decide whether a transcript fragment signals an interruption.
+- [Inventory pressure scoring](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/09-inventory-pricing): Turn supplier notes into a scarcity score for a pricing policy.
+- [Recommendation re-ranking](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/10-recommendation-reranking): Score three products against a shopper preference and sort in code.
+- [Jev as judge](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/11-jev-as-judge): Judge two candidate answers against one explicit factual reference.
+- [Traffic signal selection](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/12-traffic-signals): Choose a toy intersection phase from precomputed queue conditions.
+- [Autonomous driving decisions](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/13-autonomous-driving): Choose a maneuver for a vehicle in a tiny top-down scene.
+- [Adaptive e-learning](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/14-adaptive-learning): Select the next lesson from a learner explanation.
+- [Student answer scoring](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/15-answer-rubric): Evaluate a short science answer against a visible rubric.
+- [Smart home intent](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/16-smart-home): Route a natural-language request to a known room action.
+- [Warehouse robot routing](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/17-warehouse-robot): Choose a next corridor from semantic obstruction reports.
+- [Delivery exception routing](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/18-delivery-exception): Send delivery notes to a fixed resolution queue.
+- [Incident severity triage](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/19-incident-severity): Score an operational incident for the response queue.
+- [Alert deduplication](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/20-alert-deduplication): Detect whether two alerts describe the same incident.
+- [Customer churn signals](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/21-churn-signal): Score explicit cancellation intent in a support note.
+- [Inbound lead intent](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/22-lead-intent): Route an inbound message by its explicit buying intent.
+- [Refund request routing](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/23-refund-routing): Categorize a refund request for the right reviewer.
+- [Email urgency triage](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/24-email-priority): Identify time-sensitive language in an inbox.
+- [Review sentiment](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/25-review-sentiment): Score product sentiment on an ordered three-level rubric.
+- [Spam detection](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/26-spam-detection): Flag unsolicited promotional messages for a review queue.
+- [Personal-data screening](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/27-pii-screening): Detect personal contact data in a draft before publication.
+- [Prompt injection triage](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/28-prompt-injection): Screen retrieved text for attempts to override an assistant.
+- [RAG passage filtering](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/29-rag-passage-filter): Check relevance and embedded instructions independently.
+- [Citation support checking](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/30-citation-check): Compare one claim with its cited source excerpt.
+- [Search result re-ranking](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/31-search-reranking): Sort three retrieved pages by relevance to a query.
+- [Semantic line search](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/32-semantic-line-search): Select a line ID containing the answer to a question.
+- [Agent tool routing](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/33-tool-routing): Choose one tool from a fixed tool registry.
+- [Agent skill selection](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/34-skill-selection): Pick a relevant skill and independently check whether any skill is needed.
+- [Model escalation routing](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/35-model-escalation): Choose a handler based on task complexity.
+- [Confidence-gated support routing](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/36-confidence-escalation): Route clear tickets and send low-confidence Jev answers to review.
+- [Composite response quality](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/37-response-quality): Score grounding and relevance separately, then combine in code.
+- [Structured extraction verifier](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/38-extraction-verifier): Verify a candidate extraction against source text before accepting it.
+- [Pre-parsed email selection](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/39-email-span-extraction): Pick a billing email from candidates already found by a parser.
+- [Date component extraction](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/40-date-component-extraction): Identify a month and day from a bounded candidate set.
+- [Document structure recovery](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/41-document-layout): Classify text blocks as heading, paragraph or list item.
+- [Knowledge graph entity alignment](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/42-entity-resolution): Choose whether two catalog records describe the same product.
+- [Hierarchical product classification](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/43-taxonomy-classification): Choose a product leaf category inside a small taxonomy.
+- [Contract clause triage](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/44-contract-clause-triage): Route a clause to the relevant review checklist.
+- [Policy checklist screening](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/45-policy-compliance): Check a draft against an explicit local publishing rule.
+- [Product attribute extraction](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/46-product-attribute): Select a material explicitly stated in a product listing.
+- [Ad placement brand safety](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/47-brand-safety): Check whether a placement conflicts with a stated brand rule.
+- [Demand signal extraction](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/48-demand-features): Extract purchase intent and urgency as features for a separate forecaster.
+- [Maintenance report triage](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/49-maintenance-triage): Route equipment notes to a maintenance specialty.
+- [Speculative support fan-out](https://github.com/whyashthakker/awesome-jev-use-cases/tree/main/use-cases/50-speculative-fanout): Ask intent, urgency and refund reason together; read only the relevant branch.

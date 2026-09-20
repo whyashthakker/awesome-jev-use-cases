@@ -1,0 +1,58 @@
+{
+  "id": "44-contract-clause-triage",
+  "title": "Contract clause triage",
+  "category": "Operations",
+  "scene": "route",
+  "summary": "Route a clause to the relevant review checklist.",
+  "why": "Review software needs a clause type before applying a checklist.",
+  "questions": {
+    "clause": {
+      "type": "choice",
+      "instructions": "Classify this clause topic, without giving legal advice.",
+      "criteria": {
+        "confidentiality": "Protecting confidential information",
+        "termination": "Ending the agreement",
+        "payment": "Fees and payment timing",
+        "other": "Other subject"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Confidentiality clause",
+      "state": {
+        "text": "Each party shall protect the other party confidential information."
+      },
+      "expected": {
+        "clause": "confidentiality"
+      }
+    },
+    {
+      "name": "Payment clause",
+      "state": {
+        "text": "Invoices are payable within thirty days of receipt."
+      },
+      "expected": {
+        "clause": "payment"
+      }
+    }
+  ],
+  "labels": {
+    "confidentiality": "Confidentiality",
+    "termination": "Termination",
+    "payment": "Payment",
+    "other": "Other"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "clause"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Topic classification only; not legal advice or a finding of compliance.",
+  "pattern": "Atomic Choice"
+}

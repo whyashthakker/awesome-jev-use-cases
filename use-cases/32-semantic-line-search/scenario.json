@@ -1,0 +1,68 @@
+{
+  "id": "32-semantic-line-search",
+  "title": "Semantic line search",
+  "category": "Search & knowledge",
+  "scene": "route",
+  "summary": "Select a line ID containing the answer to a question.",
+  "why": "The caller needs an existing span identifier, not generated text.",
+  "questions": {
+    "line": {
+      "type": "choice",
+      "instructions": "Which provided line directly answers query?",
+      "criteria": {
+        "line_1": "Line 1",
+        "line_2": "Line 2",
+        "line_3": "Line 3",
+        "none": "No line answers"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Cancellation",
+      "state": {
+        "query": "How do I cancel?",
+        "lines": {
+          "line_1": "Invoices are emailed monthly.",
+          "line_2": "Cancel from Settings > Billing.",
+          "line_3": "Support responds on weekdays."
+        }
+      },
+      "expected": {
+        "line": "line_2"
+      }
+    },
+    {
+      "name": "Support hours",
+      "state": {
+        "query": "When is support available?",
+        "lines": {
+          "line_1": "Invoices are emailed monthly.",
+          "line_2": "Cancel from Settings > Billing.",
+          "line_3": "Support responds on weekdays."
+        }
+      },
+      "expected": {
+        "line": "line_3"
+      }
+    }
+  ],
+  "labels": {
+    "line_1": "Line 1",
+    "line_2": "Line 2",
+    "line_3": "Line 3",
+    "none": "None"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "line"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe line-by-line search",
+      "url": "https://docs.typesafe.ai/cookbooks/semantic_find"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Choice"
+}

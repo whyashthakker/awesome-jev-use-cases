@@ -1,0 +1,62 @@
+{
+  "id": "35-model-escalation",
+  "title": "Model escalation routing",
+  "category": "Agents & evaluation",
+  "scene": "route",
+  "summary": "Choose a handler based on task complexity.",
+  "why": "A dispatcher needs a route; expensive generation can be reserved for the selected handler.",
+  "questions": {
+    "handler": {
+      "type": "choice",
+      "instructions": "Choose the appropriate handler for this task.",
+      "criteria": {
+        "code": "Exact arithmetic or deterministic lookup",
+        "small": "Simple classification or rewrite",
+        "reasoning": "Multi-step synthesis or proof",
+        "human": "Request needs accountable human approval"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Exact sum",
+      "state": {
+        "task": "Add 12 and 34."
+      },
+      "expected": {
+        "handler": "code"
+      }
+    },
+    {
+      "name": "Research synthesis",
+      "state": {
+        "task": "Reconcile these conflicting research papers and derive a testable hypothesis."
+      },
+      "expected": {
+        "handler": "reasoning"
+      }
+    }
+  ],
+  "labels": {
+    "code": "Code",
+    "small": "Small",
+    "reasoning": "Reasoning",
+    "human": "Human"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "handler"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe intent routing",
+      "url": "https://docs.typesafe.ai/patterns/intent-routing"
+    },
+    {
+      "title": "TypeSafe extraction cascade",
+      "url": "https://docs.typesafe.ai/cookbooks/sde_cascade"
+    }
+  ],
+  "limitation": "No downstream model is called. Savings require measured routing quality, traffic mix and current prices.",
+  "pattern": "Atomic Choice"
+}

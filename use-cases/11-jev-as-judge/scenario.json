@@ -1,0 +1,66 @@
+{
+  "id": "11-jev-as-judge",
+  "title": "Jev as judge",
+  "category": "Agents & evaluation",
+  "scene": "judge",
+  "summary": "Judge two candidate answers against one explicit factual reference.",
+  "why": "An evaluator can emit a winner without generating a critique.",
+  "questions": {
+    "winner": {
+      "type": "choice",
+      "instructions": "Which candidate correctly answers the question using only the reference?",
+      "criteria": {
+        "a": "Only answer A is correct",
+        "b": "Only answer B is correct",
+        "tie": "Both correct or equally unsupported"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Wrong capital",
+      "state": {
+        "question": "What is the capital of France?",
+        "reference": "Paris is the capital of France.",
+        "a": "Paris.",
+        "b": "Lyon."
+      },
+      "expected": {
+        "winner": "a"
+      }
+    },
+    {
+      "name": "Swap candidates",
+      "state": {
+        "question": "What is the capital of France?",
+        "reference": "Paris is the capital of France.",
+        "a": "Lyon.",
+        "b": "Paris."
+      },
+      "expected": {
+        "winner": "b"
+      }
+    }
+  ],
+  "labels": {
+    "a": "Answer A",
+    "b": "Answer B",
+    "tie": "Tie / review"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "winner"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    },
+    {
+      "title": "OpenAI evaluation graders",
+      "url": "https://developers.openai.com/api/docs/guides/graders"
+    }
+  ],
+  "limitation": "Toy judge, not an objective quality oracle. Use human labels, swap candidate order, and evaluate position bias and disagreement.",
+  "pattern": "Atomic Choice"
+}

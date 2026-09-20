@@ -1,0 +1,62 @@
+{
+  "id": "46-product-attribute",
+  "title": "Product attribute extraction",
+  "category": "Commerce",
+  "scene": "route",
+  "summary": "Select a material explicitly stated in a product listing.",
+  "why": "A filter index needs a canonical material key instead of free-form text.",
+  "questions": {
+    "material": {
+      "type": "choice",
+      "instructions": "Which material is explicitly stated?",
+      "criteria": {
+        "cotton": "Cotton",
+        "wool": "Wool",
+        "polyester": "Polyester",
+        "unknown": "None of these stated"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Cotton shirt",
+      "state": {
+        "listing": "A breathable shirt made from cotton."
+      },
+      "expected": {
+        "material": "cotton"
+      }
+    },
+    {
+      "name": "Unspecified blend",
+      "state": {
+        "listing": "Soft everyday shirt in a proprietary fabric blend."
+      },
+      "expected": {
+        "material": "unknown"
+      }
+    }
+  ],
+  "labels": {
+    "cotton": "Cotton",
+    "wool": "Wool",
+    "polyester": "Polyester",
+    "unknown": "Unknown"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "material"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe pre-parsed extraction",
+      "url": "https://docs.typesafe.ai/cookbooks/pre_parsed_value_extraction_cookbook"
+    },
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Choice"
+}

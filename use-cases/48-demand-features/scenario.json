@@ -1,0 +1,74 @@
+{
+  "id": "48-demand-features",
+  "title": "Demand signal extraction",
+  "category": "Commerce",
+  "scene": "gauge",
+  "summary": "Extract purchase intent and urgency as features for a separate forecaster.",
+  "why": "A forecasting pipeline needs semantic numeric features alongside historical data.",
+  "questions": {
+    "intent": {
+      "type": "score",
+      "instructions": "Rate explicit purchase intent.",
+      "criteria": [
+        "Browsing only",
+        "Considering a purchase",
+        "Ready to buy"
+      ]
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "Rate expressed purchase urgency.",
+      "criteria": [
+        "No deadline",
+        "Flexible near-term interest",
+        "Explicit immediate need"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Immediate order",
+      "state": {
+        "note": "We are ready to buy twenty units and need them this week."
+      },
+      "expected": {
+        "intent": 2,
+        "urgency": 2
+      }
+    },
+    {
+      "name": "Early browsing",
+      "state": {
+        "note": "Just exploring products for an unspecified future project."
+      },
+      "expected": {
+        "intent": 0,
+        "urgency": 0
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "composite",
+    "keys": [
+      "intent",
+      "urgency"
+    ],
+    "weights": [
+      0.6,
+      0.4
+    ],
+    "max": 2,
+    "threshold": 1.4,
+    "high": "Strong demand signal",
+    "low": "Weak demand signal"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe feature discovery",
+      "url": "https://docs.typesafe.ai/cookbooks/autoresearch_feature_discovery"
+    }
+  ],
+  "limitation": "This produces features, not a sales forecast or purchase probability.",
+  "pattern": "Semantic features + code composition"
+}

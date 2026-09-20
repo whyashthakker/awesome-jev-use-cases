@@ -1,0 +1,56 @@
+{
+  "id": "19-incident-severity",
+  "title": "Incident severity triage",
+  "category": "Operations",
+  "scene": "gauge",
+  "summary": "Score an operational incident for the response queue.",
+  "why": "On-call routing needs a severity value before a long incident summary.",
+  "questions": {
+    "severity": {
+      "type": "score",
+      "instructions": "Rate impact described by this report.",
+      "criteria": [
+        "Cosmetic issue, service usable",
+        "Partial degradation with workaround",
+        "Core service unavailable to many users"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Checkout outage",
+      "state": {
+        "report": "All customers see errors at checkout; no payment can complete."
+      },
+      "expected": {
+        "severity": 2
+      }
+    },
+    {
+      "name": "Icon alignment",
+      "state": {
+        "report": "A settings icon is misaligned but every control works."
+      },
+      "expected": {
+        "severity": 0
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "score",
+    "key": "severity",
+    "max": 2,
+    "threshold": 1.0,
+    "high": "Prioritize",
+    "low": "Standard queue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Score"
+}

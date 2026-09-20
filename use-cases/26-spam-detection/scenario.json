@@ -1,0 +1,53 @@
+{
+  "id": "26-spam-detection",
+  "title": "Spam detection",
+  "category": "Trust & safety",
+  "scene": "gate",
+  "summary": "Flag unsolicited promotional messages for a review queue.",
+  "why": "A message filter needs a compact signal for every message.",
+  "questions": {
+    "spam": {
+      "type": "noul",
+      "instructions": "Is this message unsolicited promotional spam rather than an on-topic discussion?"
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Spam link",
+      "state": {
+        "context": "A programming help forum",
+        "message": "Guaranteed cash prize! Visit my casino offer now!!!"
+      },
+      "expected": {
+        "spam": 0.99
+      }
+    },
+    {
+      "name": "Relevant help",
+      "state": {
+        "context": "A programming help forum",
+        "message": "Try awaiting the fetch before reading its result."
+      },
+      "expected": {
+        "spam": 0.03
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "noul",
+    "key": "spam",
+    "low": 0.2,
+    "high": 0.8,
+    "yes": "Flag for review",
+    "no": "Continue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe LLM guardrails",
+      "url": "https://docs.typesafe.ai/cookbooks/llm_guardrails"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Noul"
+}

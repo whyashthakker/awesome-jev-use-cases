@@ -1,0 +1,60 @@
+{
+  "id": "15-answer-rubric",
+  "title": "Student answer scoring",
+  "category": "Product & learning",
+  "scene": "gauge",
+  "summary": "Evaluate a short science answer against a visible rubric.",
+  "why": "A formative feedback widget needs a rubric score before composing feedback.",
+  "questions": {
+    "quality": {
+      "type": "score",
+      "instructions": "Grade the answer: evaporation is liquid water changing into water vapor.",
+      "criteria": [
+        "Incorrect or unrelated",
+        "Mentions water leaving but misses vapor",
+        "Correctly describes liquid changing into vapor"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Complete concept",
+      "state": {
+        "answer": "Liquid water gains energy and becomes water vapor."
+      },
+      "expected": {
+        "quality": 2
+      }
+    },
+    {
+      "name": "Misconception",
+      "state": {
+        "answer": "Water disappears forever when the sun shines."
+      },
+      "expected": {
+        "quality": 0
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "score",
+    "key": "quality",
+    "max": 2,
+    "threshold": 1.0,
+    "high": "Prioritize",
+    "low": "Standard queue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    },
+    {
+      "title": "OpenAI evaluation graders",
+      "url": "https://developers.openai.com/api/docs/guides/graders"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Score"
+}

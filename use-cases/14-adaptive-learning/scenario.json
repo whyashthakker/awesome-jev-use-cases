@@ -1,0 +1,56 @@
+{
+  "id": "14-adaptive-learning",
+  "title": "Adaptive e-learning",
+  "category": "Product & learning",
+  "scene": "learning",
+  "summary": "Select the next lesson from a learner explanation.",
+  "why": "A learning path needs a next-step ID; teaching prose can be generated separately.",
+  "questions": {
+    "lesson": {
+      "type": "choice",
+      "instructions": "Select the next lesson based on the learner explanation.",
+      "criteria": {
+        "basics": "Misunderstands numerator and denominator",
+        "practice": "Understands terms but needs equivalent fraction practice",
+        "advance": "Correctly explains equivalent fractions"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Foundational gap",
+      "state": {
+        "explanation": "The denominator is the number of pieces I have and the numerator is always the total."
+      },
+      "expected": {
+        "lesson": "basics"
+      }
+    },
+    {
+      "name": "Ready for more",
+      "state": {
+        "explanation": "One half equals two quarters because multiplying both parts by two preserves the ratio."
+      },
+      "expected": {
+        "lesson": "advance"
+      }
+    }
+  ],
+  "labels": {
+    "basics": "Fraction basics",
+    "practice": "Guided practice",
+    "advance": "Next concept"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "lesson"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Learning support only. These two fixtures do not measure teaching quality or justify high-stakes student assessment.",
+  "pattern": "Atomic Choice"
+}

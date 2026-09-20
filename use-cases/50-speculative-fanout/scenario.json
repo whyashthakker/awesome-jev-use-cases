@@ -1,0 +1,72 @@
+{
+  "id": "50-speculative-fanout",
+  "title": "Speculative support fan-out",
+  "category": "Agents & evaluation",
+  "scene": "route",
+  "summary": "Ask intent, urgency and refund reason together; read only the relevant branch.",
+  "why": "One typed batch can prepare multiple branches without generating a workflow narrative.",
+  "questions": {
+    "intent": {
+      "type": "choice",
+      "instructions": "Which intent is expressed?",
+      "criteria": {
+        "refund": "Asks for money back",
+        "technical": "Asks to fix an error",
+        "other": "Neither"
+      }
+    },
+    "urgent": {
+      "type": "noul",
+      "instructions": "Does the message explicitly convey immediate urgency?"
+    },
+    "refund_reason": {
+      "type": "choice",
+      "instructions": "Which refund reason is stated?",
+      "criteria": {
+        "duplicate": "Duplicate payment",
+        "quality": "Dissatisfied with quality",
+        "unknown": "Not stated or not a refund request"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Urgent duplicate",
+      "state": {
+        "message": "I was billed twice. Refund the extra charge ASAP."
+      },
+      "expected": {
+        "intent": "refund",
+        "urgent": 0.99,
+        "refund_reason": "duplicate"
+      }
+    },
+    {
+      "name": "Technical question",
+      "state": {
+        "message": "The export button shows an error. Can you help?"
+      },
+      "expected": {
+        "intent": "technical",
+        "urgent": 0.1,
+        "refund_reason": "unknown"
+      }
+    }
+  ],
+  "labels": {
+    "refund": "Refund",
+    "technical": "Technical",
+    "other": "Other"
+  },
+  "policy": {
+    "kind": "fanout"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe speculative fan-out",
+      "url": "https://docs.typesafe.ai/patterns/fan-out"
+    }
+  ],
+  "limitation": "Questions are independent. Branch relevance is resolved in code; no question relies on another answer from the same call.",
+  "pattern": "Choice + Noul + conditional code"
+}

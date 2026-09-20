@@ -1,0 +1,58 @@
+{
+  "id": "42-entity-resolution",
+  "title": "Knowledge graph entity alignment",
+  "category": "Search & knowledge",
+  "scene": "graph",
+  "summary": "Choose whether two catalog records describe the same product.",
+  "why": "A graph pipeline needs merge, separate or review rather than generated descriptions.",
+  "questions": {
+    "match": {
+      "type": "choice",
+      "instructions": "Do the two records identify the same product variant?",
+      "criteria": {
+        "merge": "Same product and same variant",
+        "separate": "Different products or variants",
+        "review": "Insufficient evidence"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Same product",
+      "state": {
+        "a": "Trail mug, 350 ml, blue, SKU M350-B",
+        "b": "Blue 350ml Trail Mug (M350-B)"
+      },
+      "expected": {
+        "match": "merge"
+      }
+    },
+    {
+      "name": "Different sizes",
+      "state": {
+        "a": "Trail mug, 350 ml, blue",
+        "b": "Trail mug, 500 ml, blue"
+      },
+      "expected": {
+        "match": "separate"
+      }
+    }
+  ],
+  "labels": {
+    "merge": "Merge",
+    "separate": "Separate",
+    "review": "Review"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "match"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe entity alignment",
+      "url": "https://docs.typesafe.ai/cookbooks/entity_alignment"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Choice"
+}

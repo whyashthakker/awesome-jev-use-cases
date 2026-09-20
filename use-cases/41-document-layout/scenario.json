@@ -1,0 +1,86 @@
+{
+  "id": "41-document-layout",
+  "title": "Document structure recovery",
+  "category": "Data & extraction",
+  "scene": "batch",
+  "summary": "Classify text blocks as heading, paragraph or list item.",
+  "why": "A renderer needs block types; it should preserve the original text.",
+  "questions": {
+    "block_0": {
+      "type": "choice",
+      "instructions": "Classify blocks[0] by its document role.",
+      "criteria": {
+        "heading": "Short section title",
+        "paragraph": "Explanatory prose",
+        "list": "A list item"
+      }
+    },
+    "block_1": {
+      "type": "choice",
+      "instructions": "Classify blocks[1] by its document role.",
+      "criteria": {
+        "heading": "Short section title",
+        "paragraph": "Explanatory prose",
+        "list": "A list item"
+      }
+    },
+    "block_2": {
+      "type": "choice",
+      "instructions": "Classify blocks[2] by its document role.",
+      "criteria": {
+        "heading": "Short section title",
+        "paragraph": "Explanatory prose",
+        "list": "A list item"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Setup document",
+      "state": {
+        "blocks": [
+          "Getting started",
+          "Install the package before running the server.",
+          "- Set your API key"
+        ]
+      },
+      "expected": {
+        "block_0": "heading",
+        "block_1": "paragraph",
+        "block_2": "list"
+      }
+    },
+    {
+      "name": "Usage document",
+      "state": {
+        "blocks": [
+          "Usage notes",
+          "- Start in preview mode",
+          "Live mode calls both providers."
+        ]
+      },
+      "expected": {
+        "block_0": "heading",
+        "block_1": "list",
+        "block_2": "paragraph"
+      }
+    }
+  ],
+  "labels": {
+    "heading": "Heading",
+    "paragraph": "Paragraph",
+    "list": "List"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "block_0"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe structure recovery",
+      "url": "https://docs.typesafe.ai/cookbooks/autoformat"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Parallel block classification"
+}

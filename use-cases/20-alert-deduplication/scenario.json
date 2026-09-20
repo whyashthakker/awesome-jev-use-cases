@@ -1,0 +1,53 @@
+{
+  "id": "20-alert-deduplication",
+  "title": "Alert deduplication",
+  "category": "Operations",
+  "scene": "graph",
+  "summary": "Detect whether two alerts describe the same incident.",
+  "why": "The system needs a grouping signal, not two generated summaries.",
+  "questions": {
+    "same": {
+      "type": "noul",
+      "instructions": "Do both alerts describe the same service failure and symptom?"
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Same database outage",
+      "state": {
+        "a": "API database connection refused on primary.",
+        "b": "Primary DB refusing connections; API requests fail."
+      },
+      "expected": {
+        "same": 0.98
+      }
+    },
+    {
+      "name": "Different services",
+      "state": {
+        "a": "Checkout database connection refused.",
+        "b": "Analytics report email delayed."
+      },
+      "expected": {
+        "same": 0.05
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "noul",
+    "key": "same",
+    "low": 0.2,
+    "high": 0.8,
+    "yes": "Group alerts",
+    "no": "Keep separate"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe entity alignment",
+      "url": "https://docs.typesafe.ai/cookbooks/entity_alignment"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Atomic Noul"
+}

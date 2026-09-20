@@ -1,0 +1,51 @@
+{
+  "id": "47-brand-safety",
+  "title": "Ad placement brand safety",
+  "category": "Commerce",
+  "scene": "gate",
+  "summary": "Check whether a placement conflicts with a stated brand rule.",
+  "why": "An ad pipeline needs a suitability flag per placement.",
+  "questions": {
+    "unsuitable": {
+      "type": "noul",
+      "instructions": "Does placement promote gambling? This family brand excludes gambling placements."
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Casino content",
+      "state": {
+        "placement": "Live casino bonuses and betting tips."
+      },
+      "expected": {
+        "unsuitable": 0.99
+      }
+    },
+    {
+      "name": "Family recipe",
+      "state": {
+        "placement": "How to bake banana bread with children."
+      },
+      "expected": {
+        "unsuitable": 0.02
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "noul",
+    "key": "unsuitable",
+    "low": 0.2,
+    "high": 0.8,
+    "yes": "Flag for review",
+    "no": "Continue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Illustrates one advertiser-defined rule; suitability is context-dependent.",
+  "pattern": "Atomic Noul"
+}

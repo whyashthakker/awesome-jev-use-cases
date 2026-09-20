@@ -1,0 +1,57 @@
+{
+  "id": "08-voice-turn-taking",
+  "title": "Voice-agent turn-taking",
+  "category": "Agents & evaluation",
+  "scene": "timeline",
+  "summary": "Decide whether a transcript fragment signals an interruption.",
+  "why": "A conversational controller needs a stop-or-continue signal, not prose.",
+  "questions": {
+    "interrupt": {
+      "type": "noul",
+      "instructions": "Is the user asking the speaking assistant to stop or yield the turn?"
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Explicit interruption",
+      "state": {
+        "transcript": "Wait, stop. That is not what I meant.",
+        "assistant": "speaking"
+      },
+      "expected": {
+        "interrupt": 0.99
+      }
+    },
+    {
+      "name": "Backchannel",
+      "state": {
+        "transcript": "Mm-hmm, yes.",
+        "assistant": "speaking"
+      },
+      "expected": {
+        "interrupt": 0.08
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "noul",
+    "key": "interrupt",
+    "low": 0.2,
+    "high": 0.8,
+    "yes": "Yield turn",
+    "no": "Continue speaking"
+  },
+  "sources": [
+    {
+      "title": "LiveKit turn detection",
+      "url": "https://docs.livekit.io/agents/build/turns/"
+    },
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "Text-only semantic demonstration. Audio VAD, endpointing and production voice latency are not implemented.",
+  "pattern": "Atomic Noul"
+}

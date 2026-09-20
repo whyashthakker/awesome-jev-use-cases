@@ -1,0 +1,66 @@
+{
+  "id": "40-date-component-extraction",
+  "title": "Date component extraction",
+  "category": "Data & extraction",
+  "scene": "timeline",
+  "summary": "Identify a month and day from a bounded candidate set.",
+  "why": "Typed choices can extract components while date validation and arithmetic stay in code.",
+  "questions": {
+    "month": {
+      "type": "choice",
+      "instructions": "Which month is explicitly named?",
+      "criteria": {
+        "september": "September",
+        "october": "October",
+        "unknown": "Neither named"
+      }
+    },
+    "day": {
+      "type": "choice",
+      "instructions": "Which day of month is explicitly named?",
+      "criteria": {
+        "d12": "12",
+        "d20": "20",
+        "unknown": "Neither named"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "September appointment",
+      "state": {
+        "text": "The appointment is September 20."
+      },
+      "expected": {
+        "month": "september",
+        "day": "d20"
+      }
+    },
+    {
+      "name": "October appointment",
+      "state": {
+        "text": "The appointment is October 12."
+      },
+      "expected": {
+        "month": "october",
+        "day": "d12"
+      }
+    }
+  ],
+  "labels": {
+    "september": "September",
+    "october": "October",
+    "unknown": "Unknown"
+  },
+  "policy": {
+    "kind": "date"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe date extraction",
+      "url": "https://docs.typesafe.ai/cookbooks/date_extraction_cookbook"
+    }
+  ],
+  "limitation": "Intentionally bounded to two months and days. No year is inferred; this does not parse arbitrary dates.",
+  "pattern": "Parallel bounded extraction"
+}

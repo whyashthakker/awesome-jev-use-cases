@@ -1,0 +1,82 @@
+{
+  "id": "36-confidence-escalation",
+  "title": "Confidence-gated support routing",
+  "category": "Agents & evaluation",
+  "scene": "route",
+  "summary": "Route clear tickets and send low-confidence Jev answers to review.",
+  "why": "The queue needs both an answer and a separate decision about whether to trust it.",
+  "questions": {
+    "team": {
+      "type": "choice",
+      "instructions": "Select the best team for the ticket.",
+      "criteria": {
+        "billing": "Payments or refunds",
+        "technical": "Errors or broken behavior",
+        "sales": "Purchase requests"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Clear billing",
+      "state": {
+        "ticket": "Please refund the duplicate charge."
+      },
+      "expected": {
+        "team": "billing"
+      },
+      "previewAnswers": {
+        "team": {
+          "type": "choice",
+          "choice": "billing",
+          "confidence": 0.97,
+          "probabilities": {
+            "billing": 0.98,
+            "technical": 0.01,
+            "sales": 0.01
+          }
+        }
+      }
+    },
+    {
+      "name": "Ambiguous ticket",
+      "state": {
+        "ticket": "My plan does not work like I expected."
+      },
+      "expected": {
+        "team": "technical"
+      },
+      "previewAnswers": {
+        "team": {
+          "type": "choice",
+          "choice": "technical",
+          "confidence": 0.4,
+          "probabilities": {
+            "billing": 0.25,
+            "technical": 0.6,
+            "sales": 0.15
+          }
+        }
+      }
+    }
+  ],
+  "labels": {
+    "billing": "Billing",
+    "technical": "Technical",
+    "sales": "Sales",
+    "review": "Human review"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "team",
+    "confidence": 0.7
+  },
+  "sources": [
+    {
+      "title": "TypeSafe confidence routing",
+      "url": "https://docs.typesafe.ai/patterns/confidence-routing"
+    }
+  ],
+  "limitation": "The 0.70 Jev threshold is illustrative. OpenAI has no directly comparable native confidence in this baseline; its panel shows an ungated candidate, not equivalent automated coverage.",
+  "pattern": "Confidence-gated routing"
+}

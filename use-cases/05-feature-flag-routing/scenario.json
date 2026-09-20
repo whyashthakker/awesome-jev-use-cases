@@ -1,0 +1,56 @@
+{
+  "id": "05-feature-flag-routing",
+  "title": "Feature-flag eligibility",
+  "category": "Product & learning",
+  "scene": "route",
+  "summary": "Classify feedback into a suitable feature-preview cohort.",
+  "why": "Semantic eligibility can be a fixed choice; experiment assignment itself belongs in deterministic code.",
+  "questions": {
+    "cohort": {
+      "type": "choice",
+      "instructions": "Which preview matches the stated need?",
+      "criteria": {
+        "search": "Needs better search",
+        "reports": "Needs analytics or exports",
+        "none": "No relevant feature need"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Find old orders",
+      "state": {
+        "feedback": "I cannot find old orders by product name."
+      },
+      "expected": {
+        "cohort": "search"
+      }
+    },
+    {
+      "name": "Export trends",
+      "state": {
+        "feedback": "I want a monthly trend report in a spreadsheet."
+      },
+      "expected": {
+        "cohort": "reports"
+      }
+    }
+  ],
+  "labels": {
+    "search": "Search",
+    "reports": "Reports",
+    "none": "None"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "cohort"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe intent routing",
+      "url": "https://docs.typesafe.ai/patterns/intent-routing"
+    }
+  ],
+  "limitation": "Use a stable hash for A/B allocation and permissions for access. Neither Jev nor an LLM should randomly assign production experiment buckets.",
+  "pattern": "Atomic Choice"
+}

@@ -1,0 +1,56 @@
+{
+  "id": "16-smart-home",
+  "title": "Smart home intent",
+  "category": "Simulation",
+  "scene": "home",
+  "summary": "Route a natural-language request to a known room action.",
+  "why": "Home automation needs a bounded command, not an essay.",
+  "questions": {
+    "command": {
+      "type": "choice",
+      "instructions": "Which supported command is explicitly requested?",
+      "criteria": {
+        "light_on": "Turn living room light on",
+        "light_off": "Turn living room light off",
+        "none": "Anything else or unclear request"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Lights please",
+      "state": {
+        "request": "Turn on the living room light."
+      },
+      "expected": {
+        "command": "light_on"
+      }
+    },
+    {
+      "name": "Good night",
+      "state": {
+        "request": "Switch off the living room light."
+      },
+      "expected": {
+        "command": "light_off"
+      }
+    }
+  ],
+  "labels": {
+    "light_on": "Light on",
+    "light_off": "Light off",
+    "none": "No action"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "command"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe function calling",
+      "url": "https://docs.typesafe.ai/cookbooks/function_calling"
+    }
+  ],
+  "limitation": "Local illustration only. No home devices are connected.",
+  "pattern": "Atomic Choice"
+}

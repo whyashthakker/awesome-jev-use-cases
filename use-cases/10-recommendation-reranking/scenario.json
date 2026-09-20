@@ -1,0 +1,96 @@
+{
+  "id": "10-recommendation-reranking",
+  "title": "Recommendation re-ranking",
+  "category": "Search & knowledge",
+  "scene": "rank",
+  "summary": "Score three products against a shopper preference and sort in code.",
+  "why": "A page needs an ordered candidate list, not a shopping essay.",
+  "questions": {
+    "item_0": {
+      "type": "score",
+      "instructions": "How well does products[0] match preference?",
+      "criteria": [
+        "Poor fit",
+        "Partial fit",
+        "Strong fit"
+      ]
+    },
+    "item_1": {
+      "type": "score",
+      "instructions": "How well does products[1] match preference?",
+      "criteria": [
+        "Poor fit",
+        "Partial fit",
+        "Strong fit"
+      ]
+    },
+    "item_2": {
+      "type": "score",
+      "instructions": "How well does products[2] match preference?",
+      "criteria": [
+        "Poor fit",
+        "Partial fit",
+        "Strong fit"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Light hiking gear",
+      "state": {
+        "preference": "Lightweight waterproof hiking jacket",
+        "products": [
+          "Light rain shell for hiking",
+          "Heavy wool overcoat",
+          "Breathable fleece, not waterproof"
+        ]
+      },
+      "expected": {
+        "item_0": 2,
+        "item_1": 0,
+        "item_2": 1
+      }
+    },
+    {
+      "name": "Warm city coat",
+      "state": {
+        "preference": "Warm wool coat for city winter",
+        "products": [
+          "Light rain shell for hiking",
+          "Heavy wool overcoat",
+          "Breathable fleece, not waterproof"
+        ]
+      },
+      "expected": {
+        "item_0": 0,
+        "item_1": 2,
+        "item_2": 1
+      }
+    }
+  ],
+  "labels": {
+    "item_0": "Rain shell",
+    "item_1": "Wool coat",
+    "item_2": "Fleece"
+  },
+  "policy": {
+    "kind": "rank",
+    "keys": [
+      "item_0",
+      "item_1",
+      "item_2"
+    ]
+  },
+  "sources": [
+    {
+      "title": "TypeSafe re-ranking",
+      "url": "https://docs.typesafe.ai/cookbooks/rerank_typesafe"
+    },
+    {
+      "title": "Cohere reranking",
+      "url": "https://docs.cohere.com/docs/rerank"
+    }
+  ],
+  "limitation": "Synthetic examples demonstrate an integration pattern. Validate on representative labeled data before choosing a model or an operating threshold.",
+  "pattern": "Parallel Score + code sort"
+}

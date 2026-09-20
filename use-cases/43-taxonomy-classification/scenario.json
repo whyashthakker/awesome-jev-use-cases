@@ -1,0 +1,58 @@
+{
+  "id": "43-taxonomy-classification",
+  "title": "Hierarchical product classification",
+  "category": "Data & extraction",
+  "scene": "route",
+  "summary": "Choose a product leaf category inside a small taxonomy.",
+  "why": "Catalog code needs a stable taxonomy ID, not an invented category.",
+  "questions": {
+    "category": {
+      "type": "choice",
+      "instructions": "Choose the most specific matching taxonomy leaf.",
+      "criteria": {
+        "rainwear": "Outdoors > Clothing > Rainwear",
+        "footwear": "Outdoors > Footwear",
+        "audio": "Electronics > Audio",
+        "other": "Outside these leaves"
+      }
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Rain jacket",
+      "state": {
+        "listing": "Light waterproof hiking shell with sealed seams."
+      },
+      "expected": {
+        "category": "rainwear"
+      }
+    },
+    {
+      "name": "Headphones",
+      "state": {
+        "listing": "Wireless noise-canceling headphones."
+      },
+      "expected": {
+        "category": "audio"
+      }
+    }
+  ],
+  "labels": {
+    "rainwear": "Rainwear",
+    "footwear": "Footwear",
+    "audio": "Audio",
+    "other": "Other"
+  },
+  "policy": {
+    "kind": "choice",
+    "key": "category"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe hierarchical classification",
+      "url": "https://docs.typesafe.ai/cookbooks/hierarchical_classification"
+    }
+  ],
+  "limitation": "Single-level slice of a hierarchy. This does not implement the full beam-search cookbook.",
+  "pattern": "Atomic Choice"
+}

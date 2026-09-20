@@ -1,0 +1,60 @@
+{
+  "id": "21-churn-signal",
+  "title": "Customer churn signals",
+  "category": "Customer experience",
+  "scene": "gauge",
+  "summary": "Score explicit cancellation intent in a support note.",
+  "why": "An account dashboard needs a signal rather than a generated account plan.",
+  "questions": {
+    "intent": {
+      "type": "score",
+      "instructions": "Rate expressed intent to stop using the product.",
+      "criteria": [
+        "No cancellation intent",
+        "Considering alternatives",
+        "Explicit request to cancel or leave"
+      ]
+    }
+  },
+  "scenarios": [
+    {
+      "name": "Cancel now",
+      "state": {
+        "note": "Please cancel my subscription. We moved to another product."
+      },
+      "expected": {
+        "intent": 2
+      }
+    },
+    {
+      "name": "How-to question",
+      "state": {
+        "note": "How do I invite another teammate?"
+      },
+      "expected": {
+        "intent": 0
+      }
+    }
+  ],
+  "labels": {},
+  "policy": {
+    "kind": "score",
+    "key": "intent",
+    "max": 2,
+    "threshold": 1.0,
+    "high": "Prioritize",
+    "low": "Standard queue"
+  },
+  "sources": [
+    {
+      "title": "TypeSafe feature discovery",
+      "url": "https://docs.typesafe.ai/cookbooks/autoresearch_feature_discovery"
+    },
+    {
+      "title": "TypeSafe use-case map",
+      "url": "https://docs.typesafe.ai/concepts/use-case-map"
+    }
+  ],
+  "limitation": "A semantic feature, not a churn forecast. No personal demographic inference or account action occurs.",
+  "pattern": "Atomic Score"
+}

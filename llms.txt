@@ -5,6 +5,7 @@
 Jev exposes Choice (known category), Score (ordered rubric), and Noul (yes/no probability). This repository compares native typed decisions with generated JSON using gpt-4o-mini. Preview data is illustrative; no verified performance ranking is published.
 
 ## Documentation
+- [Beam CLI action judging](https://github.com/whyashthakker/awesome-jev-use-cases/blob/main/docs/beam-cli-action-judging.md): Optional Noul and Score integration for coding-agent actions
 - [README](https://github.com/whyashthakker/awesome-jev-use-cases/blob/main/README.md): Setup and full catalog
 - [Methodology](https://github.com/whyashthakker/awesome-jev-use-cases/blob/main/docs/methodology.md): Fair comparison and limitations
 - [Research](https://github.com/whyashthakker/awesome-jev-use-cases/blob/main/docs/research.md): Primary sources and selection criteria

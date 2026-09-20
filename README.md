@@ -6,7 +6,7 @@ No frontend framework. No database. Preview without keys; add your own keys when
 
 ![Jev vs OpenAI visual use-case gallery showing the three-primitives example and searchable demo cards](docs/preview.png)
 
-[Quick start](#quick-start) · [Three primitives](#one-ticket-three-primitives) · [All 50 use cases](#all-50-use-cases) · [Methodology](docs/methodology.md) · [Research sources](docs/research.md)
+[Quick start](#quick-start) · [Three primitives](#one-ticket-three-primitives) · [All 50 use cases](#all-50-use-cases) · [Beam CLI integration](docs/beam-cli-action-judging.md) · [Methodology](docs/methodology.md) · [Research sources](docs/research.md)
 
 ## Quick start
 
@@ -84,6 +84,12 @@ A Noul near **0.5 means uncertainty**, not medium intensity. For independent con
 Both receive the **same state and question definitions**. OpenAI can produce reliable structured output too; the comparison does not deliberately force a prose-only baseline. A fixed choice may make generation unnecessary for that step, but it does not establish that Jev wins on quality, speed or cost.
 
 **No benchmark winner is claimed.** Preview results are fixtures shared by both panels. Live latency includes network time. Each panel shows estimated USD cost per run from provider-reported tokens and published rates, including OpenAI cache reads/writes. Tiny costs retain six decimal places. The calculation and price source are included in the response details and JSON export. Preview runs show $0 because no API call occurs. Missing usage or unknown model pricing shows “Unavailable”, never a fabricated zero. Native Jev probabilities and OpenAI self-reported probability estimates should not be treated as interchangeable. [Read the comparison methodology](docs/methodology.md).
+
+## Applied integration: Beam CLI action judging
+
+[Beam CLI](https://github.com/whyashthakker/beam-cli) offers optional Jev judgments for proposed agent actions, using two independent Noul risk checks and a Score damage rubric. It starts disabled; observation preserves the existing local decision, and enforcement requires explicit configuration. It uses your TypeSafe key and sends selected, redacted action data to TypeSafe.
+
+This is a working integration alongside the 50 visual demos, with separate deployment and privacy considerations. A model judgment does not authorize execution or override local policy. See the [use-case walkthrough](docs/beam-cli-action-judging.md), [Beam blog](https://agentbeam.com/blog/beam-cli-jev-action-judging), and [Jev action-judging skill](https://github.com/whyashthakker/beam-cli/tree/main/Skills/jev-action-judge).
 
 ## All 50 use cases
 

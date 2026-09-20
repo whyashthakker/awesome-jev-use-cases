@@ -25,7 +25,7 @@ Use `--scenario=1` for the second input and `--text` for the plain-text OpenAI b
 
 A publishing workflow needs a policy flag, not a general compliance essay.
 
-Jev receives the state and typed questions directly. OpenAI uses `client.responses.create({ model: "gpt-6-astra", input, ... })` with the same state and question definitions, plus a matching JSON schema by default. Both results are validated before the same local decision policy is applied.
+Jev receives the state and typed questions directly. OpenAI uses `client.responses.create({ model: "gpt-4o-mini", input, ... })` with the same state and question definitions, plus a matching JSON schema by default. Both results are validated before the same local decision policy is applied.
 
 ## Inputs
 

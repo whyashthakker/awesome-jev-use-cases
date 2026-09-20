@@ -37,7 +37,7 @@ The full cookbooks can contain multiple stages, retrieval systems or learned mod
 - [SUMO traffic signals](https://sumo.dlr.de/docs/Simulation/Traffic_Lights.html): phase selection and signal simulation motivate the traffic illustration, not a real-world Jev controller.
 - [Farama HighwayEnv intersection](https://highway-env.farama.org/environments/intersection/): a primary reference for small driving decision environments. Our SVG does not implement HighwayEnv physics.
 - [AWS fraud detection patterns](https://docs.aws.amazon.com/frauddetector/latest/ug/what-is-frauddetector.html): risk scores feeding explicit review rules. The Jev example is not a replacement for trained fraud detection.
-- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) and [GPT-6 Astra](https://developers.openai.com/api/docs/models/gpt-6-astra): basis for the requested OpenAI comparator and fair structured baseline.
+- [OpenAI Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) and [GPT-4o Mini](https://developers.openai.com/api/docs/models/gpt-4o-mini): basis for the requested OpenAI comparator and fair structured baseline.
 
 ## Why these examples
 

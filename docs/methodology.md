@@ -4,7 +4,7 @@ These demos compare **a native decision API** with **a generative model producin
 
 ## What stays the same
 
-Both providers receive the same state, question instructions, Choice options, and Score rubric. Questions in a batch are independent. The same local policy consumes validated values. No hidden reference answer is sent to either provider. Default models are `jev-latest` and the user-requested `gpt-6-astra`; returned model IDs are saved in exported results.
+Both providers receive the same state, question instructions, Choice options, and Score rubric. Questions in a batch are independent. The same local policy consumes validated values. No hidden reference answer is sent to either provider. Default models are `jev-latest` and the user-requested `gpt-4o-mini`; returned model IDs are saved in exported results.
 
 Jev uses `POST https://api.typesafe.ai/v1/systemone`. OpenAI uses `client.responses.create()` with strict JSON Schema by default. The optional text baseline asks for JSON without schema-constrained generation. It is a second integration example, not the default benchmark opponent. OpenAI also receives output-format instructions; the model tasks and state remain identical.
 
@@ -35,9 +35,9 @@ The confidence-routing demo deliberately shows a Jev-specific capability: low na
 Each live panel shows its own request's estimated **USD token cost** beside elapsed time. Prices were verified on **2026-09-20**:
 
 - [TypeSafe Jev 1.13](https://docs.typesafe.ai/models): $0.042 per million input tokens; output free.
-- [OpenAI GPT-6 Astra](https://developers.openai.com/api/docs/models/gpt-6-astra): $10 input, $1 cached input, $12.50 cache writes, and $50 output per million tokens at standard pricing.
+- [OpenAI GPT-4o Mini](https://developers.openai.com/api/docs/models/gpt-4o-mini): $0.15 input, $0.075 cached input, and $0.60 output per million tokens at standard pricing.
 
-The adapter explicitly requests OpenAI's default service tier. The estimator respects returned default, Flex or Fast/priority tiers and Astra's long-context rate above 272,000 input tokens. Input tokens are partitioned into ordinary input, cache reads and cache writes so they are not double-counted. Output tokens already include reasoning tokens. Absent cache counts are treated as zero; missing or invalid overall usage makes cost unavailable.
+The adapter explicitly requests OpenAI's default service tier. The estimator recognizes both `gpt-4o-mini` and its `gpt-4o-mini-2024-07-18` snapshot at the default tier; other returned tiers show Unavailable. There is no separate cache-write surcharge or long-context multiplier. Input tokens are partitioned into ordinary input, cache reads and cache writes so they are not double-counted. Output tokens already include reasoning tokens. Absent cache counts are treated as zero; missing or invalid overall usage makes cost unavailable.
 
 Formula: sum of each token category × its USD rate per million ÷ 1,000,000. Response details and JSON exports retain full precision, rates, token breakdown, source and verification date. The UI shows six decimals (positive amounts smaller than that display `<$0.000001`). Preview costs are $0 for local fixture playback, not hypothetical model calls.
 
@@ -51,7 +51,7 @@ These are list-price estimates, not invoices; taxes, credits and negotiated pric
 4. Report classification accuracy and macro F1, or rubric error for scores. Evaluate calibration separately; agreement with a fixture is not proof of correctness.
 5. Include rejection and review rates. Evaluate human-reviewed outcomes for confidence-gated systems.
 6. Calculate cost only with verified current prices and applicable account/service-tier rules. Providers count tokens differently; token count alone is not a dollar comparison.
-7. Compare with a relevant small classifier, specialized model and deterministic rules too. `gpt-6-astra` is the requested baseline, not a representative average of all LLMs.
+7. Compare with a relevant small classifier, specialized model and deterministic rules too. `gpt-4o-mini` is the requested baseline, not a representative average of all LLMs.
 
 ## Boundaries
 

@@ -51,7 +51,7 @@ test('OpenAI uses Responses with exact model, same state/questions and strict sc
  let payload;
  const d=demos[0],state=d.scenarios[0].state;
  const result=await evaluate(d,state,'openai','structured',{env:{OPENAI_API_KEY:'test'},openai:{responses:{create:async p=>{payload=p;return {status:'completed',model:p.model,output_text:JSON.stringify(d.scenarios[0].expected),usage:{input_tokens:10,output_tokens:20}};}}}});
- assert.equal(payload.model,'gpt-6-astra');assert.equal(payload.store,false);assert.equal(payload.service_tier,'default');assert.equal(result.cost.status,'estimated');assert.equal(payload.text.format.strict,true);
+ assert.equal(payload.model,'gpt-4o-mini');assert.equal(payload.store,false);assert.equal(payload.service_tier,'default');assert.equal(result.cost.status,'estimated');assert.equal(payload.text.format.strict,true);
  assert.deepEqual(JSON.parse(payload.input),{state,questions:d.questions});assert.deepEqual(result.answers,{});assert.ok(result.latencyMs>=0);
 });
 test('Jev sends the documented payload and preserves native answers',async()=>{

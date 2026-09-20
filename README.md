@@ -1,6 +1,6 @@
 # Awesome Jev Use Cases — 50 Visual Jev vs OpenAI Demos
 
-**50 minimal, interactive examples of TypeSafe Jev’s Choice, Score and Noul primitives, compared side by side with OpenAI’s Responses API (`gpt-6-astra`).** Each use case has its own folder, two synthetic scenarios, a small 2D visual and a runnable JavaScript example.
+**50 minimal, interactive examples of TypeSafe Jev’s Choice, Score and Noul primitives, compared side by side with OpenAI’s Responses API (`gpt-4o-mini`).** Each use case has its own folder, two synthetic scenarios, a small 2D visual and a runnable JavaScript example.
 
 No frontend framework. No database. Preview without keys; add your own keys when you want real responses.
 
@@ -33,7 +33,7 @@ Add these values to the local `.env` file, then restart `npm start`:
 TYPESAFE_API_KEY=your_typesafe_key
 OPENAI_API_KEY=your_openai_key
 JEV_MODEL=jev-latest
-OPENAI_MODEL=gpt-6-astra
+OPENAI_MODEL=gpt-4o-mini
 ```
 
 Select **Live · use my API keys** in a demo. Each comparison makes one paid request to each provider. Keys stay on the local Node server and are never sent to the browser. The server binds to loopback only and serves a fixed list of public files.
@@ -74,7 +74,7 @@ A Noul near **0.5 means uncertainty**, not medium intensity. For independent con
 | Aspect | Jev | OpenAI baseline here |
 | --- | --- | --- |
 | API | TypeSafe System One | OpenAI Responses |
-| Default model | `jev-latest` | `gpt-6-astra` |
+| Default model | `jev-latest` | `gpt-4o-mini` |
 | Output | Native Choice, Score, Noul answers | Generated JSON constrained by a schema |
 | Choice / Score distributions | Returned natively | Not fabricated by this demo |
 | Confidence | Native for Choice and Score | No directly comparable native value used |

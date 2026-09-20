@@ -2,7 +2,7 @@
 
 > 50 original, minimal visual examples comparing TypeSafe Jev with the OpenAI Responses API.
 
-Jev exposes Choice (known category), Score (ordered rubric), and Noul (yes/no probability). This repository compares native typed decisions with generated JSON using gpt-6-astra. Preview data is illustrative; no verified performance ranking is published.
+Jev exposes Choice (known category), Score (ordered rubric), and Noul (yes/no probability). This repository compares native typed decisions with generated JSON using gpt-4o-mini. Preview data is illustrative; no verified performance ranking is published.
 
 ## Documentation
 - [README](https://github.com/whyashthakker/awesome-jev-use-cases/blob/main/README.md): Setup and full catalog

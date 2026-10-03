@@ -60,6 +60,13 @@ test('Jev sends the documented payload and preserves native answers',async()=>{
  assert.equal(request.url,'https://api.typesafe.ai/v1/systemone');assert.equal(request.options.headers.Authorization,'Bearer test');
  assert.deepEqual(JSON.parse(request.options.body),{state:d.scenarios[0].state,model:'jev-latest',questions:d.questions});assert.equal(result.answers.refund.noul,.95);
 });
+test('Jev posts to TYPESAFE_BASE_URL when it is set',async()=>{
+ const d=demos[0];const urls=[];
+ const fetch=async(url)=>{urls.push(url);return {ok:true,json:async()=>({model:'local',answers:d.scenarios[0].previewAnswers,usage:{input_tokens:1}})};};
+ for (const base of ['http://127.0.0.1:8766','http://127.0.0.1:8766/',' https://proxy.example/jev ']) await evaluate(d,d.scenarios[0].state,'jev','structured',{env:{TYPESAFE_API_KEY:'test',TYPESAFE_BASE_URL:base},fetch});
+ await evaluate(d,d.scenarios[0].state,'jev','structured',{env:{TYPESAFE_API_KEY:'test',TYPESAFE_BASE_URL:''},fetch});
+ assert.deepEqual(urls,['http://127.0.0.1:8766/v1/systemone','http://127.0.0.1:8766/v1/systemone','https://proxy.example/jev/v1/systemone','https://api.typesafe.ai/v1/systemone']);
+});
 test('plain-text baseline is still validated; failures never masquerade as fixture results',async()=>{
  const d=demos[0];let payload;
  await assert.rejects(evaluate(d,'state','openai','text',{env:{OPENAI_API_KEY:'test'},openai:{responses:{create:async p=>{payload=p;return {status:'completed',output_text:'Here is a paragraph.'};}}}}),/validation/);

@@ -3,6 +3,13 @@ import {performance} from 'node:perf_hooks';
 import {answerSchema, validateValues, jevValues, decision, scenePolicy} from './engine.js';
 import {estimateCost} from './pricing.js';
 
+// Same variable as TypeSafe's SDKs: point Jev requests at a proxy, a gateway or
+// another server that speaks /v1/systemone. Unset means api.typesafe.ai.
+export function jevEndpoint(env) {
+  const base = (env.TYPESAFE_BASE_URL || '').trim().replace(/\/+$/, '');
+  return base ? `${base}/v1/systemone` : 'https://api.typesafe.ai/v1/systemone';
+}
+
 export async function evaluate(demo, state, provider, baseline = 'structured', deps = {}) {
   if (!['jev','openai'].includes(provider)) throw new Error('Unknown provider.');
   if (!['structured','text'].includes(baseline)) throw new Error('Unknown OpenAI baseline.');
@@ -13,7 +20,7 @@ export async function evaluate(demo, state, provider, baseline = 'structured', d
   let raw, values, generatedText;
   try {
     if (provider === 'jev') {
-      const response = await (deps.fetch || fetch)('https://api.typesafe.ai/v1/systemone', {
+      const response = await (deps.fetch || fetch)(jevEndpoint(env), {
         method:'POST', headers:{Authorization:`Bearer ${key}`, 'Content-Type':'application/json'},
         body:JSON.stringify({state, model:env.JEV_MODEL || 'jev-latest', questions:demo.questions}),
         signal:AbortSignal.timeout(45000)

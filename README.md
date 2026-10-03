@@ -36,6 +36,8 @@ JEV_MODEL=jev-latest
 OPENAI_MODEL=gpt-4o-mini
 ```
 
+To send the Jev side somewhere other than `api.typesafe.ai`, set `TYPESAFE_BASE_URL`, the same variable TypeSafe's SDKs read. It works with a proxy, a gateway or any server that speaks `/v1/systemone`, such as a local [WaterSheep](https://github.com/SamratDuttaOfficial/WaterSheep) server (`TYPESAFE_BASE_URL=http://127.0.0.1:8766`). The page still labels that side Jev and prices it at Jev's rate.
+
 Select **Live · use my API keys** in a demo. Each comparison makes one paid request to each provider. Keys stay on the local Node server and are never sent to the browser. The server binds to loopback only and serves a fixed list of public files.
 
 The **OpenAI baseline** under Options defaults to **Structured Outputs**. You can also try plain text prompted to return JSON. Both modes use `client.responses.create()` and `response.output_text`; output is validated before it drives the visual.
